@@ -1,0 +1,24 @@
+{
+  "page":{
+   "home":{
+    "title": "ከብቁ ባለሙያዎች በኢንተርኔት ይማሩ",
+    "learnFromBest": "ከብቁ ባለሙያዎች ይማሩ",
+    "learnFromBestDescription": "በተለያዩ ዘርፎች ውስጥ ከፍተኛ ባለሙያዎች የገለፁትን ጠቃሚ ዘዴዎች እና ዘዴዎች ይማሩ.",
+    "watchCourses": "በሙያ የተዘጋጁ ኮርሶችን ይመልከቱ",
+    "watchCoursesDescription": "ከፍተኛ ጥራት ያለው የኢንተርኔት የመማር ልምድ ለማረጋገጥ በቤት ውስጥ ሁሉንም ኮርስ እንጠቀማለን እና እና ያመርታለን.",
+    "learnWithoutBarrier": "ያለ ቋንቋ እንቅፋት ተማር",
+    "learnWithoutBarrierDescription": "በተለያዩ ቋንቋዎች እና ንዑስ ርዕሶች ውስጥ ወደ ኮርሶች የዕድሜ ልክ መዳረሻ ያግኙ."
+
+    
+   }
+  },
+   "navbar":{
+    "courses":"ኮርሶች",
+     "myCourse": " ኮርሶቼ",
+     "placeholder":"ምን መማር ትፈልጋለህ?",
+     "login":"ግባ",
+    "signUp":"ይመዝገቡ"
+  }
+
+
+}

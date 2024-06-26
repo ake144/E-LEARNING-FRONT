@@ -1,0 +1,23 @@
+{
+    "page":{
+     "home":{
+         "title":"Learn online from well-known:" ,
+         "learnFromBest": "Learn from the best professionals",
+         " learnFromBestDescription": "Learn valuable methods and techniques explained by top experts in different sectors.",
+          "watchCourses": "Watch professionally produced courses",
+          "watchCoursesDescription": "We curate and produce every course in-house to ensure a high-quality online learning experience.",
+          "learnWithoutBarrier": "Learn without language barrier",
+          "learnWithoutBarrierDescription": "Get lifetime access to courses in different languages and subtitles."
+         
+     }
+    },
+     "navbar":{
+         "courses":"Courses",
+         "myCourse":"My courses",
+         "placeholder":"what do you want to learn?",
+         "login":"Login",
+         "signUp":"sign up"
+     }
+ 
+ 
+ }
