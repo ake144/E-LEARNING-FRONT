@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import './globals.css';
-import Navbar from '@/components/header';
-import Footer from '@/components/footer';
-import AboveFooter from "@/components/aboveFooter";
-import QueryProvider from "@/components/queryProvider";
+import QueryProvider from "@/components/tools/queryProvider";
 import AuthProvider from "@/lib/provider";
 import { Locale, i18n } from "@/i18n.config";
 import { getDictionary } from "@/lib/dictionary";

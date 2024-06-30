@@ -1,4 +1,4 @@
-import TeamMembers from '@/components/teamCard';
+import TeamMembers from '@/components/tools/teamCard';
 import Image from 'next/image'
 import React from 'react'
 
@@ -24,7 +24,7 @@ export default function About() {
     
        <div className='flex lg:flex-row lg:px-[60px] mx-5 lg:mx-[80px] px-4px  flex-col'>
           <div className='flex justify-center flex-col items-center'>
-               <h2 className='text-2xl flex text-azure my-8 '>Muyalogy</h2>
+               <h2 className='text-2xl flex text-azure  my-8 '>Muyalogy</h2>
                 <p className='text-base flex my-6'>
                 An innovative full-service learning platform that offers a comprehensive suite of online courses in a number of different areas. Our courses are designed to provide users with the most up-to-date knowledge and training in the fields of their choosing.
                  We produce, market, and manage our courses to ensure that our users have the best experience possible. With our diverse selection of courses, we strive to make learning accessible to everyone, no matter their location or level of expertise.

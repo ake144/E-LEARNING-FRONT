@@ -34,8 +34,6 @@
 
     --radius: 0.5rem;
   }
-
- 
 }
 
 @font-face {
@@ -53,12 +51,23 @@ body {
 }
 
 @layer base {
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
     font-size: 14px; /* Set the default font size */
-    color: rgb(0, 0, 0); /* Set the default text color */
+  }
+}
+
+@layer components {
+  .border-border {
+    border-color: hsl(var(--border));
   }
 }

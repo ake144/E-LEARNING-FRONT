@@ -4,7 +4,6 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { CourseSchema } from '@/utils/types/identifiers';
 import { useCreateCourse } from '@/utils/hooks/getCourse';
-import 'tailwindcss/tailwind.css';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { useSession } from 'next-auth/react';

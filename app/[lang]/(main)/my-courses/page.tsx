@@ -1,4 +1,4 @@
-import MyCourse from '@/components/myCourse'
+import MyCourse from '@/components/courses/myCourse'
 import React from 'react'
 
 function MyCourses() {
