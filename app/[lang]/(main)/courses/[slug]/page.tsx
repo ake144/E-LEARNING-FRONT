@@ -3,7 +3,6 @@ import { MdOutlineSubtitles } from 'react-icons/md';
 import { RxAvatar } from "react-icons/rx";
 import { CiShare2 } from "react-icons/ci";
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { LuBarChart } from "react-icons/lu";
 import { FiAlignRight } from "react-icons/fi";
@@ -12,11 +11,12 @@ import { TbCertificate } from "react-icons/tb";
 import { Separator } from '@/components/ui/separator';
 import { CiMobile3 } from "react-icons/ci";
 import { SiPowerpages } from "react-icons/si";
-import ShareModal from '@/components/share'
+import ShareModal from '@/components/tools/share'
 import Testimonials from '@/components/Testimonals'
 import { FaRegFaceSadTear } from "react-icons/fa6";
 import { useCourseBySlug } from '@/utils/hooks/getCourse';
 import { courseSchema } from '@/types/course';
+import { useState } from 'react';
 
 
 interface CourseSchema {
@@ -151,28 +151,28 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
     <p>{JSON.parse(course.content).about}</p>
     <h2 className='text-2xl font-bold mt-5 mb-3'>Requirements</h2>
     <ul className='ml-6 list-disc'>
-      {JSON.parse(course.content).requirements.map((item, index) => (
+      {JSON.parse(course.content).requirements.map((item: any, index:any) => (
         <li key={index}>{item}</li>
       ))}
     </ul>
     <h2 className='text-2xl font-bold mt-5 mb-3'>Who is this course for?</h2>
     <ul className='ml-6 list-disc'>
-      {JSON.parse(course.content).targetAudience.map((item, index) => (
+      {JSON.parse(course.content).targetAudience.map((item:any, index: any) => (
         <li key={index}>{item}</li>
       ))}
     </ul>
     <h2 className='text-2xl font-bold mt-5'>What you will learn</h2>
-    {JSON.parse(course.content).units.map((unit, unitIndex) => (
+    {JSON.parse(course.content).units.map((unit: { title:any; lessons: any[]; }, unitIndex: any | ((prevState: boolean) => boolean) | null | undefined) => (
       <div key={unitIndex} className='border rounded-md p-4 mt-5'>
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-lg">{unit.title}</h2>
-          <button onClick={() => setIsOpen(unitIndex)}>
+          <button onClick={() => setIsOpen(unitIndex !== isOpen ? unitIndex : false)}>
             {isOpen === unitIndex ? <FaChevronUp /> : <FaChevronDown />}
           </button>
         </div>
         {isOpen === unitIndex && (
           <div className="mt-2">
-            {unit.lessons.map((lesson, lessonIndex) => (
+            {unit.lessons.map((lesson: { title: string }, lessonIndex: any) => (
               <p key={lessonIndex} className="flex items-center cursor-pointer">
                 <span className="mr-2">▶️</span> {lesson.title}
               </p>

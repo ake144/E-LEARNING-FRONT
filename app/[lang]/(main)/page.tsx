@@ -1,7 +1,5 @@
 
-import AboveFooter from "@/components/aboveFooter";
-import data from '@/app/[lang]/(main)/courses/data';
-import Cards from "@/components/courseCard";
+import Cards from "@/components/courses/courseCard";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { FaRegQuestionCircle } from "react-icons/fa";

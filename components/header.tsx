@@ -5,7 +5,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import Categories from './categoryCard';
+import Categories from '@/components/category/categoryCard';
 import {
   Dialog,
   DialogContent,
@@ -16,11 +16,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import DialogSignUp from '@/components/auth/dialogSignUp';
-import  Search from '@/components/search'
-import categories from './categoryCard'
+import  Search from '@/components/search/search'
 import DialogLogin from './auth/dialogLogin';
-import { Profile } from './profile';
-import LocaleSwitcher from './localSwitcher';
+import { Profile } from './tools/profile';
+import LocaleSwitcher from './tools/localSwitcher';
 import { useSession } from 'next-auth/react';
 import { UseGetAllCategories } from '@/utils/quries/hooks';
 

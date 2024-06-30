@@ -6,7 +6,7 @@ import {
   FaCalculator, FaPaintBrush, FaBriefcase, FaBullhorn, FaUtensils, FaCode, FaHeartbeat,
   FaBook, FaMusic, FaUserGraduate, FaCamera, FaPencilAlt, FaFileAlt
 } from 'react-icons/fa';
-import { Separator } from './ui/separator';
+import { Separator } from '../ui/separator';
 import { UseGetAllCategories } from '@/utils/quries/hooks';
 
 const Categories = () => {

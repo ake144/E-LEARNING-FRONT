@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import data from '@/app/[lang]/(main)/courses/data';
 import { AiTwotonePlayCircle } from "react-icons/ai";
 import { LuBarChart } from "react-icons/lu";
 import { FiAlignRight } from "react-icons/fi";
