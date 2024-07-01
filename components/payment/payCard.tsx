@@ -1,15 +1,18 @@
 'use client'
 
-
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 function PaymentPage() {
+  const { data: session } = useSession();
+  const user = session?.user;
+
   const [form, setForm] = useState({
     amount: '',
     currency: 'ETB', // Default currency
-    email: '',
-    first_name: '',
-    last_name: '',
+    email: user?.email || '',
+    first_name: user?.Fname || '',
+    last_name: user?.Lname || '',
     phone_number: '',
   });
 
@@ -19,9 +22,10 @@ function PaymentPage() {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
+    console.log('Form submitted');
 
     try {
-      const response = await fetch("http://localhost:4000/accept-payment", {
+      const response = await fetch("http://localhost:4000/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +33,7 @@ function PaymentPage() {
         body: JSON.stringify({
           ...form,
           tx_ref: `${form.first_name}-${Date.now()}`, // Generate a unique transaction reference
-          redirect_url: "http://localhost:3000/pay/sucess", // Replace with your actual return URL
+          redirect_url: "http://localhost:3000/pay/success", // Replace with your actual return URL
           payment_options: "card",
           customizations: {
             title: "Payment for items in cart",
@@ -64,50 +68,78 @@ function PaymentPage() {
   };
 
   return (
-    <div className="flex items-center mt-[200px] mx-[80px] justify-center">
-      <form className="p-5 m-10 shadow-2xl rounded-xl" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="amount"
-          className='mx-5'
-          value={form.amount}
-          onChange={handleChange}
-          placeholder="Amount"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="text"
-          name="first_name"
-          value={form.first_name}
-          onChange={handleChange}
-          placeholder="First Name"
-          required
-        />
-        <input
-          type="text"
-          name="last_name"
-          value={form.last_name}
-          onChange={handleChange}
-          placeholder="Last Name"
-          required
-        />
-        <input
-          type="text"
-          name="phone_number"
-          value={form.phone_number}
-          onChange={handleChange}
-          placeholder="Phone Number"
-          required
-        />
-        <button className="px-4 py-2 ml-3 rounded-md bg-green-600 text-white" type="submit">
+    <div className="max-w-md mx-auto mt-[150px] p-5 bg-white shadow-2xl rounded-xl">
+      <h2 className="text-2xl font-semibold text-center mb-6">Payment Form</h2>
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="amount" className="font-medium text-gray-700">Amount</label>
+          <input
+            type="text"
+            id="amount"
+            name="amount"
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            value={form.amount}
+            onChange={handleChange}
+            placeholder="Enter amount"
+            required
+          />
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="email" className="font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="first_name" className="font-medium text-gray-700">First Name</label>
+          <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            value={form.first_name}
+            onChange={handleChange}
+            placeholder="Enter your first name"
+            required
+          />
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="last_name" className="font-medium text-gray-700">Last Name</label>
+          <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            value={form.last_name}
+            onChange={handleChange}
+            placeholder="Enter your last name"
+            required
+          />
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="phone_number" className="font-medium text-gray-700">Phone Number</label>
+          <input
+            type="text"
+            id="phone_number"
+            name="phone_number"
+            className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            value={form.phone_number}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full py-3 mt-6 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+        >
           Pay
         </button>
       </form>
