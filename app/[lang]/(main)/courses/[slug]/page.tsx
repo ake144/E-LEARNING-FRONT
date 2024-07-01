@@ -17,6 +17,7 @@ import { FaRegFaceSadTear } from "react-icons/fa6";
 import { useCourseBySlug } from '@/utils/hooks/getCourse';
 import { courseSchema } from '@/types/course';
 import { useState } from 'react';
+import Link from 'next/link';
 
 
 interface CourseSchema {
@@ -80,17 +81,6 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
     setIsShareModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (slug) {
-  //     const foundCourse = courses.find(course => course.title.toLocaleLowerCase().replace(/\s+/g, '-') === slug);
-  //     if (foundCourse) {
-  //       setCourse(foundCourse);
-  //     }
-  //   }
-  // }, [slug])
-
-
-
 
   return (<>
     {course === null && <div className='flex justify-center items-center mt-11 py-[100px] text-xl'><FaRegFaceSadTear className='mx-5 h-11 w-[40px] '/> Course not found</div>}
@@ -121,7 +111,9 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
             <div className="flex flex-col gap-4 text-sm">
               <p className="text-md justify-center pt-4 items-center flex">Ready to become a filmmaker?</p>
               <button className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+              <Link href='/pay'>
                 <p className='flex items-center justify-center w-full'>Buy Course</p>
+                </Link>
               </button>
               <Separator className='my-4' />
               <p className='flex items-center'><LuBarChart className='mr-4' /> Level: {course.level}</p>
@@ -162,7 +154,7 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
       ))}
     </ul>
     <h2 className='text-2xl font-bold mt-5'>What you will learn</h2>
-    {JSON.parse(course.content).units.map((unit: { title:any; lessons: any[]; }, unitIndex: any | ((prevState: boolean) => boolean) | null | undefined) => (
+    {JSON.parse(course.content)?.units?.map((unit: { title:any; lessons: any[]; }, unitIndex: any | ((prevState: boolean) => boolean) | null | undefined) => (
       <div key={unitIndex} className='border rounded-md p-4 mt-5'>
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-lg">{unit.title}</h2>
@@ -188,7 +180,9 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
       </div>
       <div className="lg:w-[300px] hidden lg:flex flex-col mr-11 p-4 gap-6 text-sm bg-white border sticky top-24 self-start">
         <p className="text-md justify-center items-center flex mb-2">Ready to become a filmmaker?</p>
-        <button className="bg-green-500 text-white py-1 px-4 rounded mb-2">Buy Course</button>
+        <Link href='/pay'>
+          <button className="bg-green-500 text-white py-1 px-4 rounded mb-2" >Buy Course</button>
+        </Link>
         <p className="flex items-center"><LuBarChart className='mr-2' /> Level: {course.level}</p>
         <p className="flex items-center"><MdLanguage className='mr-2' /> Language: {course.language}</p>
         <p className="flex items-center"><MdOutlineSubtitles className="mr-2" /> Subtitle: {course.subtitle}</p>
