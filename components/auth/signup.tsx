@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema, signUpSchema } from "@/lib/zod";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { BaseUrl } from "@/utils/types/identifiers";
 
 const SignUp = () => {
     const { toast } = useToast();
@@ -16,7 +17,7 @@ const SignUp = () => {
 
     const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
         try {
-            const res = await fetch('http://localhost:4000/auth/register', {
+            const res = await fetch(`${BaseUrl}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),

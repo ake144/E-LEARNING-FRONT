@@ -2,9 +2,10 @@
 
 // import { Category, Course } from "./hooks";
 import { courseSchema, categorySchema } from "@/types/course";
+import { BaseUrl } from "../types/identifiers";
 
 export const getAllCourse = async (): Promise<courseSchema[]> => {
-  const res = await fetch('http://localhost:4000/course');
+  const res = await fetch(`${BaseUrl}/course`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -12,7 +13,7 @@ export const getAllCourse = async (): Promise<courseSchema[]> => {
 };
 
 export const createCourse = async (data: any) => {
-  const res = await fetch('http://localhost:4000/course', {
+  const res = await fetch(`${BaseUrl}/course`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ export const createCourse = async (data: any) => {
 }
 
 export const updateCourse = async ({ id, data }: { id: number, data: any }) => {
-  const res = await fetch(`http://localhost:4000/course/${id}`, {
+  const res = await fetch(`${BaseUrl}/course/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ export const updateCourse = async ({ id, data }: { id: number, data: any }) => {
 }
 
 export const deleteCourse = async (id: number) => {
-  const res = await fetch(`http://localhost:4000/course/${id}`, {
+  const res = await fetch(`${BaseUrl}course/${id}`, {
     method: 'DELETE',
   });
 
@@ -57,7 +58,7 @@ export const deleteCourse = async (id: number) => {
 
 
 export const getAllCategories = async (): Promise<categorySchema[]> => {
-  const res = await fetch('http://localhost:4000/category');
+  const res = await fetch(`${BaseUrl}/category`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -65,7 +66,7 @@ export const getAllCategories = async (): Promise<categorySchema[]> => {
 }
 
 export const createCategory = async (data: any) => {
-  const res = await fetch('http://localhost:4000/category', {
+  const res = await fetch(`${BaseUrl}category`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ export const createCategory = async (data: any) => {
 }
 
 export const getCategoryById = async (id: string) => {
-  const res = await fetch(`http://localhost:4000/category/${id}`);
+  const res = await fetch(`${BaseUrl}/category/${id}`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -89,7 +90,7 @@ export const getCategoryById = async (id: string) => {
 }
 
 export const updateCategory = async ({ id, data }: { id: any, data: any }) => {
-  const res = await fetch(`http://localhost:4000/category/${id}`, {
+  const res = await fetch(`${BaseUrl}/category/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ export const updateCategory = async ({ id, data }: { id: any, data: any }) => {
 
 
 export const deleteCategory = async (id: string) => {
-  const res = await fetch(`http://localhost:4000/category/${id}`, {
+  const res = await fetch(`${BaseUrl}/category/${id}`, {
     method: 'DELETE',
   });
 
@@ -119,7 +120,7 @@ export const deleteCategory = async (id: string) => {
 
 
 export const getCourseById = async (id: number) => {
-  const res = await fetch(`http://localhost:4000/course/${id}`);
+  const res = await fetch(`${BaseUrl}/course/${id}`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -127,7 +128,7 @@ export const getCourseById = async (id: number) => {
 };
 
 export const addToMyCourse = async (id: number) => {
-  const res = await fetch(`http://localhost:3000/course/${id}`, {
+  const res = await fetch(`${BaseUrl}/course/${id}`, {
     method: 'POST',
     body: JSON.stringify({ id }),
     headers: {
@@ -143,7 +144,7 @@ export const addToMyCourse = async (id: number) => {
 };
 
 export const getMyCourses = async (userId: string) => {
-  const res = await fetch(`http://localhost:3000/mycourses/${userId}`);
+  const res = await fetch(`${BaseUrl}/mycourses/${userId}`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -151,7 +152,7 @@ export const getMyCourses = async (userId: string) => {
 };
 
 export const updateProfile = async (data: any) => {
-  const res = await fetch('http://localhost:3000/users', {
+  const res = await fetch( `${BaseUrl}/users`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -168,7 +169,7 @@ export const updateProfile = async (data: any) => {
 
 
 export const getAllRatings = async () => {
-  const res = await fetch('http://localhost:4000/rating');
+  const res = await fetch(`${BaseUrl}/rating`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -176,7 +177,7 @@ export const getAllRatings = async () => {
 }
 
 export const createRating = async (data: any) => {
-  const res = await fetch('http://localhost:4000/rating', {
+  const res = await fetch(`${BaseUrl}/rating`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -192,7 +193,7 @@ export const createRating = async (data: any) => {
 }
 
 export const getRatingById = async (id: string) => {
-  const res = await fetch(`http://localhost:4000/rating/${id}`);
+  const res = await fetch(`${BaseUrl}/rating/${id}`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -200,7 +201,7 @@ export const getRatingById = async (id: string) => {
 }
 
 export const updateRating = async ({ id, data }: { id: string, data: any }) => {
-  const res = await fetch(`http://localhost:4000/rating/${id}`, {
+  const res = await fetch(`${BaseUrl}/rating/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -217,7 +218,7 @@ export const updateRating = async ({ id, data }: { id: string, data: any }) => {
 
 
 export const deleteRating = async (id: string) => {
-  const res = await fetch(`http://localhost:4000/rating/${id}`, {
+  const res = await fetch(`${BaseUrl}/rating/${id}`, {
     method: 'DELETE',
   });
 

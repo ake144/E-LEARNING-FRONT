@@ -2,10 +2,14 @@
 
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { BaseUrl, return_url } from '@/utils/types/identifiers';
+
+
 
 function PaymentPage() {
   const { data: session } = useSession();
   const user = session?.user;
+ 
 
   const [form, setForm] = useState({
     amount: '',
@@ -25,7 +29,7 @@ function PaymentPage() {
     console.log('Form submitted');
 
     try {
-      const response = await fetch("http://localhost:4000/payment", {
+      const response = await fetch(`${BaseUrl}/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +37,7 @@ function PaymentPage() {
         body: JSON.stringify({
           ...form,
           tx_ref: `${form.first_name}-${Date.now()}`, // Generate a unique transaction reference
-          redirect_url: "http://localhost:3000/pay/success", // Replace with your actual return URL
+          redirect_url: {return_url}, // Replace with your actual return URL
           payment_options: "card",
           customizations: {
             title: "Payment for items in cart",
