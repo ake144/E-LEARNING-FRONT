@@ -140,16 +140,16 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
     </div>
   </div>
   <div className='text-sm mb-5'>
-    <p>{JSON.parse(course.content).about}</p>
+    <p>{JSON.parse(course.content)?.about}</p>
     <h2 className='text-2xl font-bold mt-5 mb-3'>Requirements</h2>
     <ul className='ml-6 list-disc'>
-      {JSON.parse(course.content).requirements.map((item: any, index:any) => (
+      {JSON.parse(course.content)?.requirements?.map((item: any, index:any) => (
         <li key={index}>{item}</li>
       ))}
     </ul>
     <h2 className='text-2xl font-bold mt-5 mb-3'>Who is this course for?</h2>
     <ul className='ml-6 list-disc'>
-      {JSON.parse(course.content).targetAudience.map((item:any, index: any) => (
+      {JSON.parse(course.content)?.targetAudience?.map((item:any, index: any) => (
         <li key={index}>{item}</li>
       ))}
     </ul>

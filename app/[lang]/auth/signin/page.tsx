@@ -3,7 +3,7 @@ import React from 'react'
 
 function Login() {
   return (
-    <div className='mt-[150px]  mx-[70px]'>
+    <div className='mt-[20px]  mx-[70px]'>
        <SignIn   />
 
     </div>
