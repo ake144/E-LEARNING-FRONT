@@ -1,7 +1,7 @@
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 
+export const BaseUrl = 'http://93.127.186.5:4003'
 
-export const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const return_url = process.env.NEXT_PUBLIC_RETURN_URL
 

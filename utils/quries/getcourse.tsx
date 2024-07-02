@@ -4,6 +4,9 @@
 import { courseSchema, categorySchema } from "@/types/course";
 import { BaseUrl } from "../types/identifiers";
 
+
+console.log('BaseUrl:', BaseUrl);
+
 export const getAllCourse = async (): Promise<courseSchema[]> => {
   const res = await fetch(`${BaseUrl}/course`);
   if (!res.ok) {
