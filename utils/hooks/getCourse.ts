@@ -1,5 +1,6 @@
 import { useMutation, useQuery, QueryClient } from "@tanstack/react-query";
 import {getCourseById,deleteCourse, updateCourse,createCourse, getAllCourse } from "../quries/getcourse";
+import { BaseUrl } from "../types/identifiers";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,7 @@ export function useCreateCourse() {
   }
 
   export const updateCategory = async ({ id, data }: { id: string, data: any }) => {
-    const res = await fetch(`http://localhost:4000/category/${id}`, {
+    const res = await fetch(`${BaseUrl}/category/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

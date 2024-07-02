@@ -1,5 +1,10 @@
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 
+
+export const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export const return_url = process.env.NEXT_PUBLIC_RETURN_URL
+
 // Define the Rating schema
 export interface RatingSchema {
     id: number;

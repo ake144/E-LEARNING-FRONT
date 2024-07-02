@@ -2,6 +2,7 @@ import NextAuth, { SessionStrategy } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { signInSchema } from '@/lib/zod';
 import { User, JWT } from '@/next-auth.d';
+import { BaseUrl } from '@/utils/types/identifiers';
 
 const authOptions = {
   providers: [
@@ -20,7 +21,7 @@ const authOptions = {
         }
 
         try {
-          const res = await fetch('http://localhost:4000/auth/login', {
+          const res = await fetch(`${BaseUrl}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
