@@ -37,27 +37,6 @@ interface CourseSchema {
 }
 
 
-
-
-
-const courses = [
-  {
-    title: 'The Art of Filmmaking: Mastering Storytelling and Editing with Adobe Premiere Pro',
-    instructor: 'Robel Birhanu',
-    level: 'Beginner',
-    language: 'Amharic',
-    subtitle: 'Amharic, English',
-    duration: '5:00 h',
-    lessons: 24,
-    resources: 25,
-    videoUrl: 'https://www.youtube.com/embed/1rjXwVKR9JQ?autoplay=1',
-    quiz: 6,
-    access: 'mobile, desktop, and TV',
-  },
-];
-
-const url = 'https://muyalogy.com/courses/the-art-of-filmmaking-mastering-storytelling-and-editing-with-adobe-premiere-pro';
-
 const CoursePage = ({params}:{params: {slug:string}}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -108,7 +87,6 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
         <div className="flex flex-col lg:hidden">
           <div className="p-4 w-full bg-white border mb-5 sticky top-0">
             <div className="flex flex-col gap-4 text-sm">
-              <p className="text-md justify-center pt-4 items-center flex">Ready to become a filmmaker?</p>
               <button className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
               <Link href='/pay'>
                 <p className='flex items-center justify-center w-full'>Buy Course</p>
@@ -119,10 +97,6 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
               <p className='flex items-center'><MdLanguage className='mr-4' /> Language: {course.language}</p>
               <p className="flex items-center"><MdOutlineSubtitles className="mr-4" /> Subtitle: {course.subtitle}</p>
               <p className='flex items-center'><MdOutlineTimer className="mr-4" /> Duration: {course.duration}</p>
-              <p className='flex items-center'><FiAlignRight className='mr-4' /> Lessons: {course.lessons}</p>
-              <p className='flex items-center'><SiPowerpages className='mr-4' /> Resources: {course.resources}</p>
-              <p className='flex items-center'><MdQuiz className='mr-4' /> Quiz: {course.quiz}</p>
-              <p className='flex items-center'><CiMobile3 className='mr-4' /> Access: {course.access}</p>
               <p className='flex items-center'><MdGroup className='mr-4' /> Lifetime access to the community</p>
               <p className='flex items-center'><TbCertificate className='mr-4' /> Certificate of Completion</p>
             </div>
@@ -178,7 +152,6 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
         <Testimonials />
       </div>
       <div className="lg:w-[300px] hidden lg:flex flex-col mr-11 p-4 gap-6 text-sm bg-white border sticky top-24 self-start">
-        <p className="text-md justify-center items-center flex mb-2">Ready to become a filmmaker?</p>
         <Link href='/pay'>
           <button className="bg-green-500 text-white py-1 px-4 rounded mb-2" >Buy Course</button>
         </Link>
@@ -186,10 +159,6 @@ const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
         <p className="flex items-center"><MdLanguage className='mr-2' /> Language: {course.language}</p>
         <p className="flex items-center"><MdOutlineSubtitles className="mr-2" /> Subtitle: {course.subtitle}</p>
         <p className="flex items-center"><MdOutlineTimer className="mr-2" /> Duration: {course.duration}</p>
-        <p className="flex items-center"><FiAlignRight className='mr-2' /> Lessons: {course.lessons}</p>
-        <p className="flex items-center"><SiPowerpages className='mr-2' /> Resources: {course.resources}</p>
-        <p className="flex items-center"><MdQuiz className='mr-2' /> Quiz: {course.quiz}</p>
-        <p className="flex items-center"><CiMobile3 className='mr-2' /> Access: {course.access}</p>
         <p className="flex items-center"><MdGroup className='mr-2' /> Lifetime access to the community</p>
         <p className="flex items-center"><TbCertificate className='mr-2' /> Certificate of Completion</p>
       </div>
