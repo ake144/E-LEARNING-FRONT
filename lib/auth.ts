@@ -82,7 +82,9 @@ const authOptions = {
           Lname: user.Lname,
         };
       }
+      console.log("JWT token:", token);
       return token;
+
     },
     async session({ session, token }:{session: any, token: any}) {
       if (token) {
@@ -94,6 +96,7 @@ const authOptions = {
           Lname: token.Lname,
         };
       }
+      console.log("Session:", session);
       return session;
     },
   },

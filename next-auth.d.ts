@@ -9,6 +9,7 @@ export interface User extends DefaultUser {
   avatar?: string;
   Fname?: string;
   Lname?: string;
+  accessToken?: string;
 }
 
 export interface Session extends DefaultSession {
@@ -21,4 +22,5 @@ export interface JWT extends DefaultJWT {
   avatar?: string;
   Fname?: string;
   Lname?: string;
+  accessToken?: string;
 }
