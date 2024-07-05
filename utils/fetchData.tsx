@@ -6,7 +6,6 @@ export const getCourses = async () => {
     fetch('url/posts')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         return data
     });
 
@@ -59,7 +58,6 @@ export const getCourseBySlug = async (slug: string) => {
     fetch(`url/posts/${slug}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         return data
     });
 

@@ -16,9 +16,8 @@ export function useCourseBySlug(Id: number) {
 export function useAllCourses() {
     return useQuery({
       queryKey: ['courses'],
-      queryFn: getAllCourse,
-      staleTime: 60000,
-      refetchOnWindowFocus: true,
+      queryFn:getAllCourse,
+      
     });
   }
 

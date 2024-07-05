@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { signInSchema } from '@/lib/zod';
 import { User, JWT } from '@/next-auth.d';
 import { BaseUrl } from '@/utils/types/identifiers';
+import { encode } from 'next-auth/jwt';
 
 const authOptions = {
   providers: [
@@ -16,7 +17,6 @@ const authOptions = {
         const parsedCredentials = signInSchema.safeParse(credentials);
 
         if (!parsedCredentials.success) {
-          console.log("Credentials validation failed");
           return null;
         }
 
@@ -29,14 +29,11 @@ const authOptions = {
               password: parsedCredentials.data.password,
             }),
           });
-
           if (!res.ok) {
-            console.log("Login request failed:", res.status, res.statusText);
             return null;
           }
 
           const user = await res.json();
-          console.log("User authenticated:", user);
 
           return {
             id: user.id,
@@ -44,9 +41,9 @@ const authOptions = {
             username: user.username,
             Fname: user.Fname,
             Lname: user.Lname,
+            accssesToken: user.accessToken,
           };
         } catch (error) {
-          console.log("Authorization error:", error);
           return null;
         }
       },
@@ -59,11 +56,23 @@ const authOptions = {
   
   session: {
     strategy: 'jwt' as SessionStrategy,
+    maxAge: 30 * 24 * 60 * 60,
+
+  
+  
+    
+  
   },
 
-  secret: process.env.JWT_SECRET || undefined,
+  secret: process.env.JWT_SECRET ,
+
+  
+
   callbacks: {
+    
     async jwt({ token, user }:{token: JWT, user: User | null}) {
+
+    
       if (user) {
         return {
           ...token,

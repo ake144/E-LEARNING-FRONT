@@ -1,20 +1,18 @@
 'use client'
 
-// import { Category, Course } from "./hooks";
 import { courseSchema, categorySchema } from "@/types/course";
 import { BaseUrl } from "../types/identifiers";
-
-
-console.log('BaseUrl:', BaseUrl);
+import axios from "axios";
 
 export const getAllCourse = async (): Promise<courseSchema[]> => {
-  const res = await fetch(`${BaseUrl}/course`);
-  if (!res.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return await res.json();
-};
+  console.log('BaseUrl',BaseUrl)
+const res = await axios.get(`${BaseUrl}/course`,{
+  withCredentials: true
+});
 
+  return res.data;
+};
+    //  getAllCourse().then((data) => console.log(data,'llL')).catch((error) => console.log(error.data,'error'));
 export const createCourse = async (data: any) => {
   const res = await fetch(`${BaseUrl}/course`, {
     method: 'POST',
