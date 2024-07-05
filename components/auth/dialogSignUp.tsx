@@ -7,6 +7,7 @@ import { SignUpSchema, signUpSchema } from '@/lib/zod';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
+import { BaseUrl } from '@/utils/types/identifiers';
 
 interface SignUpData {
   email: string;
@@ -17,11 +18,11 @@ interface SignUpData {
 }
 
 const signUp = async (data: SignUpData): Promise<any> => {
-  const res = await fetch('http://localhost:3000/users', {
+  const res = await fetch(`${BaseUrl}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-  });
+});
   if (!res.ok) {
     throw new Error('Failed to create user');
   }
@@ -44,7 +45,7 @@ function DialogSignUp() {
         title: 'User created successfully',
         description: 'You have successfully signed up.',
       });
-      router.push('/');
+      router.push('/auth/signin');
     },
     onError: () => {
       toast({

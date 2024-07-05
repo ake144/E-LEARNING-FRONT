@@ -1,4 +1,6 @@
 'use client'
+
+
 import { MdOutlineSubtitles } from 'react-icons/md';
 import { RxAvatar } from "react-icons/rx";
 import { CiShare2 } from "react-icons/ci";
@@ -49,6 +51,8 @@ const CoursePage = ({params}:{params: {slug:string}}) => {
 
   const numericId = slug.split('-').pop();
     console.log(numericId); // This should log '9'
+
+  const url = 'muyalogy.com'   //to make copy and this is shareable
 
 const {data:course, isLoading, isError} = useCourseBySlug(Number(numericId));
   
