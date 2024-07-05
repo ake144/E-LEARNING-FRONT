@@ -23,7 +23,7 @@ function DialogLogin() {
           redirect: false,
           email: data.email,
           password: data.password,
-        });
+      });
   
         if (result?.error) {
           notifyError(result.error);
