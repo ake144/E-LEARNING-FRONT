@@ -16,9 +16,7 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
 
 
   const session = await getServerSession(authOptions);
-  console.log(session);
   const user = session?.user;
-  console.log(user);
 
 
   return (

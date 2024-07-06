@@ -45,7 +45,6 @@ const CoursePage = ({params}:{params: {slug:string}}) => {
   // const [course, setCourse] = useState<CourseSchema | null>(null);
 
   const slug = params.slug;
-  console.log(slug);
 
 
 

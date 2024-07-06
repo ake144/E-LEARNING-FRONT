@@ -25,7 +25,6 @@ function PaymentPage() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log('Form submitted');
 
     try {
       const response = await fetch(`${BaseUrl}/payment`, {
@@ -51,7 +50,6 @@ function PaymentPage() {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
 
       // Redirect to checkout URL
       window.location.href = responseData.data.checkout_url;
