@@ -10,6 +10,10 @@ function PaymentPage() {
   const { data: session } = useSession();
   const user = session?.user;
 
+
+  console.log("user", user)
+
+  
   const [form, setForm] = useState({
     amount: '',
     currency: 'ETB', // Default currency
@@ -18,6 +22,7 @@ function PaymentPage() {
     last_name: user?.Lname || '',
     phone_number: '',
   });
+
 
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -72,7 +77,7 @@ function PaymentPage() {
 
   if (!user) {
     return (
-      <div className="max-w-md mx-auto mt-[150px] p-5 bg-white shadow-2xl rounded-xl">
+      <div className="max-w-md mx-auto mt-[150px] p-5 mb-11 bg-white shadow-2xl rounded-xl">
         <h2 className="text-2xl font-semibold text-center mb-6">
           You need to be logged in to make a payment
         </h2>
