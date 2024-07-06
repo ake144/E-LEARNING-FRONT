@@ -6,14 +6,14 @@ function MyCourse() {
   const courses = false
 
   return (
-    <div className="relative flex flex-1 flex-shrink-0">
-      <div className="relative w-80 pr-10">
+    <div className="flex ">
+      <div className="relative  pr-10">
        { courses ? (<>
        </>
        ):(
-        <div className='pt-[10px] flex flex-col left-10 px-10 items-center justify-center'>
-            <h1 className='text-4xl  font-bold text-gray-800'>My Courses</h1>
-            <p className='text-gray-500'>You have no courses yet</p>
+        <div className='pt-[10px] mx-[200px] flex flex-col items-center justify-center'>
+            <h1 className='text-4xl items-center justify-center mb-4 font-bold text-gray-800'>My Courses</h1>
+            <p className='text-gray-500 flex items-center justify-center mb-5'>You have no courses yet</p>
               <Link  href='/courses'>
                  <Button  className=''>
                      Explore Courses
