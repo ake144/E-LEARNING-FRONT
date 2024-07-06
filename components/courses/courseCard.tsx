@@ -14,7 +14,8 @@ import { useAllCourses } from '@/utils/hooks/getCourse';
 
 function Cards() {
   const { data:courses=[], isLoading, isError,error } = useAllCourses();
-  console.log('courses',courses.courses)
+
+  console.log('courses',courses)
   console.log('courses',isError,error)
   if (isLoading) {  
     return (
@@ -35,9 +36,9 @@ function Cards() {
 
   return (
     <>
-      {courses.courses?.length && (
+      {courses?.length && (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pb-8 px-4 sm:px-0 font-sans">
-          {courses.courses?.map((course) => {
+          {courses?.map((course) => {
             const slug = course.title.toLowerCase().replace(/\s+/g, '-');
             return (
               <div key={course.id} className="bg-white border w-full border-gray-200 rounded-lg shadow-md">

@@ -2,15 +2,13 @@
 
 import { courseSchema, categorySchema } from "@/types/course";
 import { BaseUrl } from "../types/identifiers";
-import axios from "axios";
+
 
 export const getAllCourse = async (): Promise<courseSchema[]> => {
   console.log('BaseUrl',BaseUrl)
-const res = await axios.get(`${BaseUrl}/course`,{
-  withCredentials: true
-});
+const res = await fetch(`${BaseUrl}/course`);
 
-  return res.data;
+  return await res.json();
 };
     //  getAllCourse().then((data) => console.log(data,'llL')).catch((error) => console.log(error.data,'error'));
 export const createCourse = async (data: any) => {

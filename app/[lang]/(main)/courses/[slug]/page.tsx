@@ -9,7 +9,6 @@ import { LuBarChart } from 'react-icons/lu';
 import { RxAvatar } from 'react-icons/rx';
 import { CiShare2 } from 'react-icons/ci';
 import { FaChevronDown, FaChevronUp, FaRegFaceSadTear } from 'react-icons/fa6';
-import Link from 'next/link';
 import { BaseUrl, return_url } from '@/utils/types/identifiers';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -18,7 +17,7 @@ import Testimonials from '@/components/Testimonals';
 import { useCourseBySlug } from '@/utils/hooks/getCourse';
 import { Currency } from 'lucide-react';
 import axios from 'axios';
-import data from '../data';
+
 
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
@@ -191,16 +190,16 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
           </div>
           <div className="hidden lg:block lg:w-1/4 lg:pl-4 p-4 bg-white">
             <div className="sticky top-[100px] p-4 border">
-                 <button onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+            <button onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
                     Buy Course
                   </button>
-              <Separator className='my-4' />
-              <p className='flex items-center'><LuBarChart className='mr-4' /> Level: {course.level}</p>
-              <p className='flex items-center'><MdLanguage className='mr-4' /> Language: {course.language}</p>
-              <p className="flex items-center"><MdOutlineSubtitles className="mr-4" /> Subtitle: {course.subtitle}</p>
-              <p className='flex items-center'><MdOutlineTimer className="mr-4" /> Duration: {course.duration}</p>
-              <p className='flex items-center'><MdGroup className='mr-4' /> Lifetime access to the community</p>
-              <p className='flex items-center'><TbCertificate className='mr-4' /> Certificate of Completion</p>
+                  <Separator className='my-6' />
+                  <p className='flex items-center mb-3'><LuBarChart className='mr-4' /> Level: {course.level}</p>
+                  <p className='flex items-center mb-3'><MdLanguage className='mr-4' /> Language: {course.language}</p>
+                  <p className="flex items-center  mb-3"><MdOutlineSubtitles className="mr-4" /> Subtitle: {course.subtitle}</p>
+                  <p className='flex items-center  mb-3'><MdOutlineTimer className="mr-4" /> Duration: {course.duration}</p>
+                  <p className='flex items-center mb-3'><MdGroup className='mr-4' /> Lifetime access to the community</p>
+                  <p className='flex items-center mb-3'><TbCertificate className='mr-4' /> Certificate of Completion</p>
             </div>
           </div>
         </div>
