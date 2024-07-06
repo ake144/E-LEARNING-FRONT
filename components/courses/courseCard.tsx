@@ -13,9 +13,10 @@ import { useAllCourses } from '@/utils/hooks/getCourse';
 
 
 function Cards() {
-  const { data: courses = [], isLoading, isError } = useAllCourses();
-
-  if (isLoading) {
+  const { data:courses=[], isLoading, isError,error } = useAllCourses();
+  console.log('courses',courses.courses)
+  console.log('courses',isError,error)
+  if (isLoading) {  
     return (
       <div className="flex items-center justify-center mt-[200px] mx-[100px]">
         <FaRegFaceSadTear className="w-10 h-10 mr-2" />
@@ -34,9 +35,9 @@ function Cards() {
 
   return (
     <>
-      {courses && (
+      {courses.courses?.length && (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pb-8 px-4 sm:px-0 font-sans">
-          {courses?.map((course) => {
+          {courses.courses?.map((course) => {
             const slug = course.title.toLowerCase().replace(/\s+/g, '-');
             return (
               <div key={course.id} className="bg-white border w-full border-gray-200 rounded-lg shadow-md">

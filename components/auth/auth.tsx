@@ -67,18 +67,15 @@ function AuthForm() {
     // const ethiopianPhoneNumberPattern = /^\+251\d{9}$/;
      const numberPattern =  /^(^\+251|^251|^0)?(9|7)\d{8}$/;
     
-    console.log("pn",numberPattern.test(phoneNumber), phoneNumber)
     return numberPattern.test(phoneNumber);
   };
 
   const handlePhoneSubmit = () => {
-    console.log(validatePhoneNumber(phoneNumber))
 
     if (validatePhoneNumber(phoneNumber)) {
       setStep(2);
       form.setValue('mobile', phoneNumber);
     } else {
-      console.log('Invalid phone number');
     }
   };
 
@@ -88,7 +85,6 @@ function AuthForm() {
 
   const handleFormSubmit = async (values: any) => {
     // Simulate sending data to backend and sending SMS
-    console.log('Submitting registration data', values);
     setStep(3);
   };
 

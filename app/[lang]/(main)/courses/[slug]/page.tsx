@@ -25,6 +25,8 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
 
   const slug = params.slug;
+
+
   const numericId = slug.split('-').pop();
   const { data: course, isLoading, isError } = useCourseBySlug(Number(numericId));
 

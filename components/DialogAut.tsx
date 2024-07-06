@@ -53,21 +53,17 @@ function RegistrationComponent() {
       form.setValue('mobile', phoneNumber);
       setStep(2);
     } else {
-      console.log('Invalid phone number');
     }
   };
 
   const handleFormSubmit = async (values: any) => {
     // Simulate sending data to backend and sending SMS
-    console.log('Submitting registration data', values);
     setStep(3);
   };
 
   const handleCodeSubmit = () => {
     // Simulate verifying the code
-    console.log('Verifying code', code);
     // On successful verification
-    console.log('User verified and redirected to home page');
   };
 
   const handleBack = () => {
@@ -76,7 +72,6 @@ function RegistrationComponent() {
 
   const handleResend = () => {
     // Handle resend logic here
-    console.log('Resending code to', phoneNumber);
   };
 
   return (

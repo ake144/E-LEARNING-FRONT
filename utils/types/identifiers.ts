@@ -6,7 +6,7 @@ export const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const return_url = process.env.NEXT_PUBLIC_RETURN_URL
 
-// Define the Rating schema
+// Define the Rating schem
 export interface RatingSchema {
     id: number;
     value: number;
@@ -39,7 +39,7 @@ export interface CourseSchema {
     trending?: boolean;
     old_price?: number;
     ratings: RatingSchema[];
-    units: UnitSchema[];  // Nested structure for units and lessons
+    units: UnitSchema[];  // 
     access: string;
 } 
 
