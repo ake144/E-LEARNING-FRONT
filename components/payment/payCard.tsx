@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -6,21 +6,9 @@ import { BaseUrl, return_url } from '@/utils/types/identifiers';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-
-
 function PaymentPage() {
   const { data: session } = useSession();
   const user = session?.user;
- 
-
-  if(!user) return (
-    <div className="max-w-md mx-auto mt-[150px] p-5 bg-white shadow-2xl rounded-xl">
-      <h2 className="text-2xl font-semibold text-center mb-6">You need to be logged in to make a payment</h2>
-       <Button>
-      <Link href="/auth/signin">Login</Link>
-       </Button>
-    </div>
-  );
 
   const [form, setForm] = useState({
     amount: '',
@@ -31,29 +19,29 @@ function PaymentPage() {
     phone_number: '',
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log('Form submitted');
 
     try {
       const response = await fetch(`${BaseUrl}/payment`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...form,
           tx_ref: `${form.first_name}-${Date.now()}`, // Generate a unique transaction reference
-          redirect_url: {return_url}, // Replace with your actual return URL
-          payment_options: "card",
+          redirect_url: { return_url }, // Replace with your actual return URL
+          payment_options: 'card',
           customizations: {
-            title: "Payment for items in cart",
+            title: 'Payment for items in cart',
             description: "Middleout isn't free. Pay the price",
-            logo: "https://assets.piedpiper.com/logo.png",
+            logo: 'https://assets.piedpiper.com/logo.png',
           },
         }),
       });
@@ -70,24 +58,39 @@ function PaymentPage() {
 
       // Clear form after successful submission
       setForm({
-        amount: "",
-        currency: "ETB",
-        email: "",
-        first_name: "",
-        last_name: "",
-        phone_number: "",
+        amount: '',
+        currency: 'ETB',
+        email: '',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
       });
     } catch (error) {
-      console.error("Error", error);
+      console.error('Error', error);
     }
   };
+
+  if (!user) {
+    return (
+      <div className="max-w-md mx-auto mt-[150px] p-5 bg-white shadow-2xl rounded-xl">
+        <h2 className="text-2xl font-semibold text-center mb-6">
+          You need to be logged in to make a payment
+        </h2>
+        <Button>
+          <Link href="/auth/signin">Login</Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto mt-[150px] p-5 bg-white shadow-2xl rounded-xl">
       <h2 className="text-2xl font-semibold text-center mb-6">Payment Form</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="flex flex-col space-y-2">
-          <label htmlFor="amount" className="font-medium text-gray-700">Amount</label>
+          <label htmlFor="amount" className="font-medium text-gray-700">
+            Amount
+          </label>
           <input
             type="text"
             id="amount"
@@ -100,7 +103,9 @@ function PaymentPage() {
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <label htmlFor="email" className="font-medium text-gray-700">Email</label>
+          <label htmlFor="email" className="font-medium text-gray-700">
+            Email
+          </label>
           <input
             type="email"
             id="email"
@@ -113,7 +118,9 @@ function PaymentPage() {
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <label htmlFor="first_name" className="font-medium text-gray-700">First Name</label>
+          <label htmlFor="first_name" className="font-medium text-gray-700">
+            First Name
+          </label>
           <input
             type="text"
             id="first_name"
@@ -126,7 +133,9 @@ function PaymentPage() {
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <label htmlFor="last_name" className="font-medium text-gray-700">Last Name</label>
+          <label htmlFor="last_name" className="font-medium text-gray-700">
+            Last Name
+          </label>
           <input
             type="text"
             id="last_name"
@@ -139,7 +148,9 @@ function PaymentPage() {
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <label htmlFor="phone_number" className="font-medium text-gray-700">Phone Number</label>
+          <label htmlFor="phone_number" className="font-medium text-gray-700">
+            Phone Number
+          </label>
           <input
             type="text"
             id="phone_number"
