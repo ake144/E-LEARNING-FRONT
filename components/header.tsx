@@ -92,18 +92,7 @@ export default  function Navbar({ lang }: { lang: any }) {
                   </div>
                   }
                 <Search />
-                <div className="flex flex-row gap-3 mt-8 mb-8">
-                {user ? ( <div  className='flex flex-row'>
-                    <Link href="/profile">
-                      <p className="text-gray-700 flex px-2 py-2 "><Profile /></p>
-                    </Link>
-                    <Link href='/my-courses'>
-                      <button  className="text-gray-700 font-sans font-bold flex px-2 pt-4 ml-4">
-                      {lang.navbar.myCourse}
-                      </button>
-                    </Link>
-                  </div>)
-                  :  <div> 
+                <div className="flex flex-row gap-3 mt-8 mb-8"> 
                     <div className="w-1/2">
                     <Link href='/auth/signin'>
                       <Button className="w-full p-2 font-sans font-bold bg-white hover:bg-white text-black border-2">
@@ -118,9 +107,6 @@ export default  function Navbar({ lang }: { lang: any }) {
                         </Button>
                       </Link>
                     </div>
-                    </div>
-                  }
-
                   </div>
               </ul>
             </nav>

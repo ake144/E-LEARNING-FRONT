@@ -9,6 +9,7 @@ import { getDictionary } from "@/lib/dictionary";
 import HomeTitle from "@/components/home/title";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
+import { Profile } from "@/components/tools/profile";
 
 
 export default async function Home({ params: { lang } }: { params: { lang: Locale } }) {
@@ -34,16 +35,27 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
             <HomeTitle lang={page} />
           </div>
           <div className="flex lg:hidden flex-row gap-3 mt-8 mb-8">
+          {user ? ( <div  className='flex flex-row'>
+            <Link href="/profile">
+              <p className="text-gray-700 flex px-2 py-2 "><Profile /></p>
+            </Link>
+            <Link href='/my-courses'>
+              <button  className="text-gray-700 font-sans font-bold flex px-2 pt-4 ml-4">
+                    myCourse
+              </button>
+            </Link>
+          </div>) : (<> 
             <div className="w-1/2">
-              <Link href='/auth'>
+              <Link href='/auth/signin'>
                 <Button className="w-full p-2 bg-white hover:bg-white text-black border-2">Login</Button>
               </Link>
             </div>
             <div className="w-1/2">
-              <Link href='/auth'>
+              <Link href='/auth/signup'>
                 <Button className="w-full p-2 hover:bg-blue-500 bg-blue-500">SignUp</Button>
               </Link>
             </div>
+          </>)}
           </div>
           <Cards />
         </div>
