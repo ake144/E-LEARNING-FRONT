@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { BaseUrl, return_url } from '@/utils/types/identifiers';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 
 
@@ -10,6 +12,15 @@ function PaymentPage() {
   const { data: session } = useSession();
   const user = session?.user;
  
+
+  if(!user) return (
+    <div className="max-w-md mx-auto mt-[150px] p-5 bg-white shadow-2xl rounded-xl">
+      <h2 className="text-2xl font-semibold text-center mb-6">You need to be logged in to make a payment</h2>
+       <Button>
+      <Link href="/auth/signin">Login</Link>
+       </Button>
+    </div>
+  );
 
   const [form, setForm] = useState({
     amount: '',
