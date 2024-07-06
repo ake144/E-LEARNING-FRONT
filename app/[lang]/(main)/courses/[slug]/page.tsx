@@ -17,12 +17,16 @@ import ShareModal from '@/components/tools/share';
 import Testimonials from '@/components/Testimonals';
 import { useCourseBySlug } from '@/utils/hooks/getCourse';
 import { Currency } from 'lucide-react';
+import axios from 'axios';
+import data from '../data';
+
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
+ 
 
   const slug = params.slug;
 
@@ -31,59 +35,53 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
   const { data: course, isLoading, isError } = useCourseBySlug(Number(numericId));
 
   const handlePay = async () => {
-    if (!session) {
+    const user = session?.user;
+  
+    if (!user) {
       router.push('/auth/signin');
-      return;
+      return 
     }
-
-    const user = session.user;
-    const { Fname, Lname, email, username} = user;
+  
+    const { Fname, Lname, email, username } = user;
     const first_name = Fname;
-
+    const last_name = Lname; // Ensure last_name is available
+    const phone_number = '1234567890'; // Add a phone number if available
+    const currency = 'ETB';
+    const amount = 200;
+    const redirect_url = 'your_redirect_url'; // Replace with your actual return URL
+    const BaseUrl = 'http://localhost:4003';
+  
     try {
-      const response = await fetch(`${BaseUrl}/payment`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: 200,
-          Currency: 'ETB',
-          email: email,
-          tx_ref: `${username}-${Date.now()}`, // Generate a unique transaction reference
-          redirect_url:return_url , // Replace with your actual return URL
-          payment_options: 'card',
-          customizations: {
-            title: 'Payment for items in cart',
-            description: "Middleout isn't free. Pay the price",
-            logo: 'https://assets.piedpiper.com/logo.png',
-          },
-        }),
-      });
 
-      if (!response.ok) {
+      
+      const response = await axios.post(`${BaseUrl}/payment`, {
+        amount,
+        currency,
+        email,
+        first_name,
+        last_name,
+        phone_number,
+        tx_ref: `${username}-${Date.now()}`, // Generate a unique transaction reference
+        redirect_url,
+        payment_options: 'card',
+        customizations: {
+          title: 'Payment for items in cart',
+          description: "Middleout isn't free. Pay the price",
+          logo: 'https://assets.piedpiper.com/logo.png',
+        },
+        withCredentials: true,
+      });
+  
+     if(!response){
         throw new Error('Error processing payment request');
       }
-
-      const responseData = await response.json();
+  
+      const responseData = response.data;
       window.location.href = responseData.data.checkout_url;
     } catch (error) {
       console.error('Error', error);
     }
   };
-
-  if (!session) {
-    return (
-      <>
-        <div className='flex justify-center items-center mt-11 py-[100px] text-xl'>
-          <FaRegFaceSadTear className='mx-5 h-11 w-[40px]' /> Please sign in to view this page
-        </div>
-        <Link href='/auth/signin'>
-          <Button>Login</Button>
-        </Link>
-      </>
-    );
-  }
 
   const openShareModal = () => {
     setIsShareModalOpen(true);
@@ -173,7 +171,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
                   <div key={unitIndex} className='border rounded-md p-4 mt-5'>
                     <div className="flex justify-between items-center">
                       <h2 className="font-bold text-lg">{unit.title}</h2>
-                      <button onClick={() => setIsOpen(unitIndex !== isOpen ? unitIndex : false)}>
+                      <button onClick={() => setIsOpen(unitIndex !== isOpen ? unitIndex : isOpen)}>
                         {isOpen === unitIndex ? <FaChevronUp /> : <FaChevronDown />}
                       </button>
                     </div>
@@ -193,9 +191,9 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
           </div>
           <div className="hidden lg:block lg:w-1/4 lg:pl-4 p-4 bg-white">
             <div className="sticky top-[100px] p-4 border">
-              <button onClick={handlePay} className="w-full bg-green-500 text-white py-2 px-4 rounded mb-4">
-                Buy Course
-              </button>
+                 <button onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+                    Buy Course
+                  </button>
               <Separator className='my-4' />
               <p className='flex items-center'><LuBarChart className='mr-4' /> Level: {course.level}</p>
               <p className='flex items-center'><MdLanguage className='mr-4' /> Language: {course.language}</p>
