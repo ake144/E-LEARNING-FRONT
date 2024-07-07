@@ -14,6 +14,7 @@ export const signUpSchema = z.object({
   password: z.string().min(8, { message: "Password must be at least 6 characters long" }),
   username: z.string().min(2, { message: "Username must be at least 2 characters long" }).optional(),
   Fname: z.string().min(2, { message: "First name must be at least 2 characters long" }).optional(),
+  phone_number:z.string().min(10,{message:"phone number must be min of 10"}).optional(),
   Lname: z.string().min(2, { message: "Last name must be at least 2 characters long" }).optional(),
 });
 

@@ -31,6 +31,7 @@ function MyCourse({ params }: { params: { slug: string } }) {
         </div>
       )}
 
+
       {course && (
         <div className="flex flex-col lg:flex-row mt-10 space-y-10 lg:space-y-0 lg:space-x-10">
           <div className="lg:w-3/4 bg-white shadow-lg p-6 rounded-lg">

@@ -9,10 +9,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 import { BaseUrl } from '@/utils/types/identifiers';
 
-interface SignUpData {
+export interface SignUpData {
   email: string;
   password: string;
   username?: string;
+  phone_number?: string;
   Fname?: string;
   Lname?: string;
 }
@@ -79,6 +80,11 @@ function DialogSignUp() {
         <label className="block text-gray-700">Email</label>
         <input type="email" {...register('email')} className="w-full p-2 border rounded mt-1" />
         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700">Phone Number</label>
+        <input type="text" {...register('phone_number')} className="w-full p-2 border rounded mt-1" />
+        {errors.phone_number && <p className="text-red-500 text-sm mt-1">{errors.phone_number.message}</p>}
       </div>
       <div className="mb-4">
         <label className="block text-gray-700">Password</label>
