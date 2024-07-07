@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { BaseUrl } from '@/utils/types/identifiers';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const PaymentSuccess = () => {
   const { data: session } = useSession();
@@ -24,10 +26,11 @@ const PaymentSuccess = () => {
       const { id: userId } = session.user;
 
       try {
-        const response = await axios.post(`${BaseUrl}/purchased`, {
-          userId,
-          courseId,
+        const response = await axios.post(`${BaseUrl}/course/purchased`, {
+        user_id:userId,
+        course_id:courseId,
         });
+
 
         console.log(response);
         if (response.status === 200) {
@@ -45,7 +48,12 @@ const PaymentSuccess = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <h1>Processing your purchase...</h1>
+
+      <Link  href='/my-courses'>  
+         <Button >
+             My-course
+         </Button>
+      </Link>
     </div>
   );
 };
