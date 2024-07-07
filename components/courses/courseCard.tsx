@@ -86,7 +86,7 @@ function Cards() {
                       <p className="ml-1 font-bold">36</p>
                     </div>
                   </div>
-                  <Link href={`/courses/${slug}`}>
+                  <Link href={`/courses/${slug}-${course.id}`}>
                     <button className="w-full mt-4 text-blue-500 border border-blue-600 py-2 px-4 rounded">
                       Get started
                     </button>
@@ -96,8 +96,6 @@ function Cards() {
             );
           })}
         </div>
-
-
 
 
       )}

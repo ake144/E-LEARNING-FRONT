@@ -41,14 +41,15 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
       return 
     }
   
+    const courseId = Number(numericId)
     const { Fname, Lname, email, username } = user;
     const first_name = Fname;
     const last_name = Lname; // Ensure last_name is available
     const phone_number = '1234567890'; // Add a phone number if available
     const currency = 'ETB';
     const amount = 200;
-    const redirect_url = return_url; // Replace with your actual return URL
-    const BaseUrl = 'http://localhost:4003';
+    const redirect_url = `http://localhost:3000/pay/sucess?courseId=${courseId}`;; // Replace with your actual return URL
+
   
     try {
 
