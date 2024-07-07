@@ -11,18 +11,17 @@ import { FiAlignRight } from 'react-icons/fi';
 import Link from 'next/link';
 import MyCourse from '@/components/courses/myCourse';
 import { BaseUrl } from '@/utils/types/identifiers';
+import { isCoursePurchased } from '@/utils/check';
 
-// Dynamically import PlyrVideoComponent, disabling SSR
-const PlyrVideo = dynamic(() => import('@/components/mediaPlayer/player'), {
-  ssr: false,
-});
 
 function MyCourses() {
   const { data: session, status } = useSession();
   const [course, setCourse] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-
+  const [isLoading, setIsLoading] = useState(true);
   const userId = session?.user?.id;
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +34,7 @@ function MyCourses() {
         }
         const result = await response.json();
         console.log("purchased",result);
+        setIsLoading(false);
         setCourse(result);
       } catch (error: any) {
         setError(error);
@@ -44,19 +44,16 @@ function MyCourses() {
     fetchData();
   }, [userId]);
 
-  // Assuming course contains the videoId field after fetching from backend
-  const videoId = course?.video || 'i8qukld8Z18'; // Fallback or default videoId if course is not loaded
+
 
   return (
     <div>
-  
-
-
       <div className='mt-[90px] mx-[50px]'>
       <h1 className='text-4xl items-center justify-center mb-4 font-bold text-gray-800'>My Courses</h1>
       
       
       {error && <p className='text-gray-500 flex items-center justify-center mb-5'>An error occurred while fetching your courses</p>}
+  {isLoading && <p className='text-gray-500 flex items-center mt-[140px] justify-center mb-5'>Loading...</p>}
 
  {course?.length == 0 && <p className='text-xl  justify-center items-center  mt-11'>You have no purchased course</p>}
       {course?.length && (
@@ -66,9 +63,9 @@ function MyCourses() {
             return (
               <div key={course.id} className="bg-white border w-full border-gray-200 rounded-lg shadow-md">
                 <div className="relative">
-                  <Image
-                    src="/english.jpg"
-                    alt="Video Thumbnail"
+                <Image
+                    src={course.image_url}
+                    alt="Course Thumbnail"
                     width={700}
                     height={280}
                     className="rounded-t-lg"

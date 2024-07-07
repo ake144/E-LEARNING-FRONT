@@ -43,9 +43,9 @@ function Cards() {
             return (
               <div key={course.id} className="bg-white border w-full border-gray-200 rounded-lg shadow-md">
                 <div className="relative">
-                  <Image
-                    src="/english.jpg"
-                    alt="Video Thumbnail"
+                 <Image
+                    src={course.image_url}
+                    alt="Course Thumbnail"
                     width={700}
                     height={280}
                     className="rounded-t-lg"

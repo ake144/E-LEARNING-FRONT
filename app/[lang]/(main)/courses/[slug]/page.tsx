@@ -17,7 +17,9 @@ import Testimonials from '@/components/Testimonals';
 import { useCourseBySlug } from '@/utils/hooks/getCourse';
 import { Currency } from 'lucide-react';
 import axios from 'axios';
-
+import { isCoursePurchased } from '@/utils/check';
+import {getYouTubeEmbedUrl} from '@/utils/youtube'
+import Link from 'next/link';
 
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
@@ -32,9 +34,13 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
 
   const numericId = slug.split('-').pop();
   const { data: course, isLoading, isError } = useCourseBySlug(Number(numericId));
+  
+
+  const user = session?.user;
+  const userId = user?.id;
 
   const handlePay = async () => {
-    const user = session?.user;
+   
   
     if (!user) {
       router.push('/auth/signin');
@@ -50,10 +56,9 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
     const amount = 200;
     const redirect_url = `http://localhost:3000/pay/sucess?courseId=${courseId}`;; // Replace with your actual return URL
 
+
   
     try {
-
-      
       const response = await axios.post(`${BaseUrl}/payment`, {
         amount,
         currency,
@@ -83,6 +88,11 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
     }
   };
 
+
+  const isPurchased = isCoursePurchased(Number(numericId), userId,BaseUrl)
+
+  console.log(isPurchased)
+
   const openShareModal = () => {
     setIsShareModalOpen(true);
   };
@@ -90,6 +100,17 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
   const closeShareModal = () => {
     setIsShareModalOpen(false);
   };
+
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error loading course</div>;
+  }
+
+  const embedUrl = getYouTubeEmbedUrl(course.short_video_url);
+
 
   return (
     <>
@@ -117,7 +138,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
             </div>
             <div className="h-[400px] w-full mb-4 rounded-lg">
               <iframe 
-                src={course.short_video_url} 
+                src={embedUrl} 
                 width="100%"
                 height="100%"
                 frameBorder="0"
@@ -129,9 +150,17 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
             <div className="flex flex-col lg:hidden">
               <div className="p-4 w-full bg-white border mb-5 sticky top-0">
                 <div className="flex flex-col gap-4 text-sm">
-                  <button onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
-                    Buy Course
-                  </button>
+                {isPurchased ? (
+                      <Link href={`/my-courses/${slug}-${course.id}`}>
+                        <div className="flex justify-center items-center bg-green-500 text-white p-2 rounded mb-4">
+                          Go to the Course
+                        </div>
+                      </Link>
+                    ) : (
+                      <button  onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+                        Buy Course
+                      </button>
+                    )}
                   <Separator className='my-4' />
                   <p className='flex items-center'><LuBarChart className='mr-4' /> Level: {course.level}</p>
                   <p className='flex items-center'><MdLanguage className='mr-4' /> Language: {course.language}</p>
@@ -191,9 +220,19 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
           </div>
           <div className="hidden lg:block lg:w-1/4 lg:pl-4 p-4 bg-white">
             <div className="sticky top-[100px] p-4 border">
-            <button onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
-                    Buy Course
-                  </button>
+            
+                     {isPurchased ? (
+                      <Link href={`/my-courses/${slug}-${course.id}`}>
+                        <div className="flex justify-center items-center bg-green-500 text-white p-2 rounded mb-4">
+                          Go to the Course
+                        </div>
+                      </Link>
+                    ) : (
+                      <button  onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+                        Buy Course
+                      </button>
+                    )}
+
                   <Separator className='my-6' />
                   <p className='flex items-center mb-3'><LuBarChart className='mr-4' /> Level: {course.level}</p>
                   <p className='flex items-center mb-3'><MdLanguage className='mr-4' /> Language: {course.language}</p>

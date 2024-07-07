@@ -56,7 +56,12 @@ const CoursesPage: React.FC = () => {
   const categoryName = categories?.find(cat => cat.id === Number(category_id))?.name || '';
 
   if (isLoading) {
-    return <div  className='mt-[200px] mx-[100px] flex items-center justify-center'><LoadingScreen /></div>;
+    return <div  className='mt-[200px] mx-[100px] flex items-center justify-center'>
+          <p className='text-xl justify-center items-center mx-10 mt-10'>
+            isLoading...
+          </p>
+
+    </div>;
   }
 
   if (isError || !courses) {

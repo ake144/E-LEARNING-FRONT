@@ -49,9 +49,12 @@ const PaymentSuccess = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
 
+   <h2 className='text-2xl flex justify-center p-4 mx-2'>
+            payment successfully done
+   </h2>
       <Link  href='/my-courses'>  
-         <Button >
-             My-course
+         <Button className='mt-7 justify-center items-center text-xl ' >
+          Go to  My-course
          </Button>
       </Link>
     </div>
