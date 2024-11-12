@@ -28,19 +28,19 @@ function PaymentPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
-
+  
     try {
-      const response = await fetch(`${BaseUrl}/payment`, {
+      const response = await fetch(`${BaseUrl}/accept-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...form,
-          tx_ref: `${form.first_name}-${Date.now()}`, // Generate a unique transaction reference
-          redirect_url: { return_url }, // Replace with your actual return URL
+          tx_ref: `${Date.now()}`, // Generate a unique transaction reference
+          redirect_url: return_url, // Ensure this is defined as your app's return URL
           payment_options: 'card',
           customizations: {
             title: 'Payment for items in cart',
@@ -49,17 +49,24 @@ function PaymentPage() {
           },
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Error processing payment request');
       }
-
+  
       const responseData = await response.json();
+  
+      if (responseData.data && responseData.data.checkout_url) {
 
-      // Redirect to checkout URL
-      window.location.href = responseData.data.checkout_url;
 
-      // Clear form after successful submission
+        console.log("responseData", responseData.data.checkout_url)
+        // Redirect to the checkout URL
+        window.location.href = responseData.data.checkout_url;
+      } else {
+        throw new Error('Checkout URL is missing in the response');
+      }
+  
+      // Optionally clear form fields after successful submission
       setForm({
         amount: '',
         currency: 'ETB',
@@ -69,9 +76,10 @@ function PaymentPage() {
         phone_number: '',
       });
     } catch (error) {
-      console.error('Error', error);
+      console.error('Error:', error);
     }
   };
+  
 
   if (!user) {
     return (

@@ -5,6 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import Link from 'next/link';
 import React from 'react';
 import { Button } from "./ui/button";
+import  image from "@/public/learning.png";
+import Image from 'next/image';
 
 function Footer() {
   return (
@@ -13,7 +15,7 @@ function Footer() {
         <div className="flex flex-col lg:flex-row justify-between items-center pt-10 px-10">
           <div className="flex items-center mb-6 lg:mb-0">
             <div className="mr-4">
-              <img src="/logo.png" alt="Bright Path Logo" className="h-10"/>
+              <Image src={image} alt="Bright Path Logo"   width={100} height={100}  />
             </div>
             <div>
               <p className="text-xl font-bold">Bright Path</p>

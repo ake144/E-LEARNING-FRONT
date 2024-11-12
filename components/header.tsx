@@ -148,7 +148,7 @@ export default  function Navbar({ lang }: { lang: any }) {
               <p className="text-gray-700 flex px-2 py-2 "><Profile /></p>
             </Link>
             <Link href='/my-courses'>
-              <button  className="font-sans font-bold flex px-2 pt-4 ml-4 bg-white hover:text-azure  text-azure border-2">
+              <button  className="font-sans items-center p-4 h-10 font-bold flex px-2 pt-4 ml-4 bg-white hover:text-azure  text-azure border-2">
                {lang.navbar.myCourse}
               </button>
             </Link>
