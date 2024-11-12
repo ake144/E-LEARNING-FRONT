@@ -157,7 +157,7 @@ function RegistrationComponent() {
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Accept{' '}
-                  <a href="https://www.muyalogy.com/content/terms" className="text-blue-500">
+                  <a href="https://www.Bright Path.com/content/terms" className="text-blue-500">
                     Terms of Service and privacy policy
                   </a>
                 </label>
@@ -183,7 +183,7 @@ function RegistrationComponent() {
               <div className="flex flex-col gap-3 mt-4">
                 <div className="text-sm flex my-7">
                   <p>
-                    Muyalogy sent you a verification code to {phoneNumber}, Please enter your
+                    Bright Path sent you a verification code to {phoneNumber}, Please enter your
                     verification code here
                   </p>
                 </div>

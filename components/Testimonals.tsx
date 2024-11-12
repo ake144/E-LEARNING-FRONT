@@ -16,13 +16,13 @@ const testimonials = [
   {
     name: 'Boaz Dereje',
     image: 'https://via.placeholder.com/100',
-    text: 'I like Muyalogy as a whole and specifically our instructor Nabil for teaching English well. His way of teaching, pronunciation, and elaboration is so wonderful. The only thing to improve for the Muyalogy is the payment method...',
+    text: 'I like Bright Path as a whole and specifically our instructor Nabil for teaching English well. His way of teaching, pronunciation, and elaboration is so wonderful. The only thing to improve for the Bright Path is the payment method...',
     rating: 5,
   },
   {
     name:'Debora Mola',
     image:'https://via.placeholder.com/100',
-    text:'From starting Muyalogy website is best for learning online courses in Ethiopia.',
+    text:'From starting Bright Path website is best for learning online courses in Ethiopia.',
     rating: 5,
 }
 ];

@@ -10,7 +10,8 @@ const res = await fetch(`${BaseUrl}/course`);
 
   return await res.json();
 };
-    //  getAllCourse().then((data) => console.log(data,'llL')).catch((error) => console.log(error.data,'error'));
+    
+
 export const createCourse = async (data: any) => {
   const res = await fetch(`${BaseUrl}/course`, {
     method: 'POST',

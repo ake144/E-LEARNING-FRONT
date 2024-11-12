@@ -14,7 +14,7 @@ function FAQ() {
          <div className='flex flex-col'>
          <div className='border rounded-md p-4 mt-5'>
               <div className="flex justify-between items-center">
-                <h2 className="font-bold text-lg">What is Muyalogy?</h2>
+                <h2 className="font-bold text-lg">What is Bright Path?</h2>
                 <Button onClick={() => { setIsOpen(!isOpen) }}>
                   {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                 </Button>
@@ -22,8 +22,8 @@ function FAQ() {
               {isOpen && (
                 <div className="mt-2 mx-2">
                   <p className=" text-base cursor-pointer">
-                    <span className="font-bold">Muyalogy</span> is an innovative full-service learning platform that produces, markets and manages online courses in a variety of fields.
-                     The name Muyalogy is a combination of two words – Muya, which means skill in Amharic, and logy, which means study in Greek. and our platform has currently started registration for the various courses that we are providing. Muyalogy is a place where anyone can learn a new skill.
+                    <span className="font-bold">Bright Path</span> is an innovative full-service learning platform that produces, markets and manages online courses in a variety of fields.
+                     The name Bright Path is a combination of two words – Muya, which means skill in Amharic, and logy, which means study in Greek. and our platform has currently started registration for the various courses that we are providing. Bright Path is a place where anyone can learn a new skill.
                   </p>
                 </div>
               )}

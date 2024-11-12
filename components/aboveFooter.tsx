@@ -7,7 +7,7 @@ function AboveFooter() {
   return (
     <div className='bg-white w-full p-6 font-sans'>
       <h1 className='text-center pt-12 pb-6 lg:text-4xl text-2xl font-bold'>
-        What to expect from <span className='text-blue-600'>Muyalogy</span> courses
+        What to expect from <span className='text-blue-600'>Bright Path</span> courses
       </h1>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 px-2 lg:px-24'>
         <div className='flex flex-col gap-9'>

@@ -13,10 +13,23 @@ const categories = [
   { name: 'IT & Development', content: 'Content for IT & Development' },
   { name: 'Language & Literature', content: 'Content for Language & Literature' },
   { name: 'Music & Theatre', content: 'Content for Music & Theatre' },
-  { name: 'Office Productivity', content: 'Content for Office Productivity' },
   { name: 'Personal Development', content: 'Content for Personal Development' },
+  { name: 'Reading & Writting ', content: 'Content for developing writting and reading skill' },
+  { name: 'Driving', content: 'Content for Driving' },
+  { name: 'Modern Agriculture', content: 'Content for Agriculture' },
   { name: 'Photography & Videography', content: 'Content for Photography & Videography' },
+  { name: 'Mindset & paradigm shift', content: 'Content for Mindset' },
+  { name: 'Basic of Sales', content: 'Content for Sales' },
+  { name: 'Baby care', content: 'Content for MinBaby care' },
+  { name: 'Basic of Health', content: 'Content for Health' },
+  { name: 'Assistance ', content: 'Content for Assistance' },
+  { name: 'Baby care', content: 'Content for MinBaby care' },
+  { name: 'house keeping', content: 'Content for keeping' },
+  { name: 'Wood Work', content: 'Content for Wood Work' },
+  { name: 'Video Editing', content: 'Content for Video Editing' },
+  { name: 'Grinding & Building ', content: 'Content for Grinding and Building ' },
 ];
+
 
 const CategoriesPage = () => {
   const [activeTab, setActiveTab] = useState(categories[0].name);

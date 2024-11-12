@@ -64,7 +64,7 @@ export default  function Navbar({ lang }: { lang: any }) {
                 <li><Link href="/my-courses" className="text-md">{lang.navbar.myCourse}</Link></li>
                     <li
                       onClick={() => setIsOpen(!isOpen)}
-                      className="text-md cursor-pointer flex items-center"
+                      className="text-md cursor-pointer flex items-center bg-white h-10 p-3 hover:text-azure  text-azure border-2"
                     >
                       {lang.navbar.courses}
                       <svg className="ml-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +102,7 @@ export default  function Navbar({ lang }: { lang: any }) {
                     </div>
                     <div className="w-1/2">
                       <Link href='/auth/signup'>
-                        <Button className="w-full p-2 font-sans font-bold hover:bg-blue-500 bg-blue-500">
+                        <Button className="w-full p-2 font-sans font-bold hover:bg-gray-200 bg-white  text-blue-500 border-2">
                           {lang.navbar.signUp}
                         </Button>
                       </Link>
@@ -115,7 +115,7 @@ export default  function Navbar({ lang }: { lang: any }) {
 
         <div className="flex items-center sm:justify-center left-[120px] space-x-30">
           <Link href="/">
-            <p className="text-2xl font-bold text-azure font-sans   lg:ml-[90px]">Muyalogy</p>
+            <p className="text-2xl font-bold text-azure font-sans   lg:ml-[90px]">Bright Path</p>
           </Link>
         </div>
 
@@ -125,7 +125,7 @@ export default  function Navbar({ lang }: { lang: any }) {
               <div
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="flex items-center space-x-1 font-bold  cursor-pointer"
+                className="flex items-center space-x-1 font-bold  cursor-pointer h-10 p-3 mx-5 bg-white hover:text-azure  text-azure border-2"
               >
                 <span>{lang.navbar.courses}</span>
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -148,14 +148,14 @@ export default  function Navbar({ lang }: { lang: any }) {
               <p className="text-gray-700 flex px-2 py-2 "><Profile /></p>
             </Link>
             <Link href='/my-courses'>
-              <button  className="text-gray-700 font-sans font-bold flex px-2 pt-4 ml-4">
+              <button  className="font-sans font-bold flex px-2 pt-4 ml-4 bg-white hover:text-azure  text-azure border-2">
                {lang.navbar.myCourse}
               </button>
             </Link>
           </div>) : (<>   
            <Dialog>
                 <DialogTrigger asChild>
-                    <Button className='text-black font-bold  py-2 rounded-md border bg-white px-4' variant="outline">{lang.navbar.login}</Button>
+                    <Button className='text-azure hover:text-azure font-bold  py-2 rounded-md  bg-white px-4' variant="outline">{lang.navbar.login}</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[500px] dialog-overlay bg-white">
                     <DialogHeader>
@@ -168,7 +168,7 @@ export default  function Navbar({ lang }: { lang: any }) {
 
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="px-4 py-2 bg-azure hover:bg-azure-dar  hover:text-white text-white mx-4 rounded-md" variant="outline">{lang.navbar.signUp}</Button>
+                    <Button className="px-4 py-2  font-bold hover:bg-gray-100 bg-white hover:text-azure  text-azure border-2 mx-4 rounded-md" variant="outline">{lang.navbar.signUp}</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[500px] dialog-overlay bg-white">
                     <DialogHeader>

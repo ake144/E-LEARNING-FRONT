@@ -10,6 +10,8 @@ import HomeTitle from "@/components/home/title";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
 import { Profile } from "@/components/tools/profile";
+import  image from "@/public/learning.png";
+
 
 
 export default async function Home({ params: { lang } }: { params: { lang: Locale } }) {
@@ -27,9 +29,8 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
           <div className="flex flex-col lg:flex-row gap-6 p-4 sm:p-10">
             <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
               <div className="flex flex-col">
-                <p>Logo here</p>
-                <Image src="/learning.jpg" alt="logo" width={300} height={300} />
-                <p className="text-6xl text-azure items-center justify-center flex">MuYALOGY</p>
+                <Image src={image} alt="logo" width={300} height={300} />
+                <p className="text-6xl text-azure items-center justify-center flex">Bright Path</p>
               </div>
             </div>
             <HomeTitle lang={page} />

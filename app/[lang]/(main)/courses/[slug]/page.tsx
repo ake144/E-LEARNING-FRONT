@@ -178,7 +178,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
                   <Button onClick={openShareModal} className='w-full lg:w-auto bg-white hover:bg-blue-100 border-2 text-blue-500'>
                     <CiShare2 className='text-blue-500 mr-3' /> Share
                   </Button>
-                  {isShareModalOpen && <ShareModal url={'muyalogy.com'} onClose={closeShareModal} />}
+                  {isShareModalOpen && <ShareModal url={'Bright Path.com'} onClose={closeShareModal} />}
                 </div>
               </div>
               <div className='text-sm mb-5'>

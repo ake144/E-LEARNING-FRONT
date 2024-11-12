@@ -24,8 +24,8 @@ function Contact() {
                             <MdAlternateEmail  className='h-11 mt-1 w-[60px]  p-2 rounded-lg' />
                             <div className='ml-4'>
                             <h6 className='text-sm '>Email</h6>
-                            <Link href='mailto:hi@muyalogy.com'>
-                              <p className='text-azure text-sm'>hi@muyalogy.com</p>
+                            <Link href='mailto:hi@Bright Path.com'>
+                              <p className='text-azure text-sm'>hi@Bright Path.com</p>
                             </Link>
                             </div>
                         </div>

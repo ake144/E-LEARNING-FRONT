@@ -172,7 +172,7 @@ function AuthForm() {
                 htmlFor="terms"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Accept <a href='https://www.muyalogy.com/content/terms' className='text-blue-500'> Terms of Service and privacy policy</a>
+                Accept <a href='https://www.Bright Path.com/content/terms' className='text-blue-500'> Terms of Service and privacy policy</a>
               </label>
             </div>
             <div className="flex space-x-4 mt-4 gap-7">
@@ -193,7 +193,7 @@ function AuthForm() {
             <h2 className="font-bold text-2xl flex justify-center">Confirm mobile</h2>
             <div className="flex flex-col gap-3 mt-4">
               <div className="text-sm flex my-7">
-                <p>Muyalogy sent you a verification code to {phoneNumber}, Please enter your verification code and new password here</p>
+                <p>Bright Path sent you a verification code to {phoneNumber}, Please enter your verification code and new password here</p>
               </div>
               <div className="flex justify-center my-4">
                 <input

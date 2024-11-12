@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div className='bg-gray-900 fixed top-0 w-full z-50 text-white py-2 px-5 flex justify-between h-[80px]  items-center shadow-lg'>
       <Link href='/'>
-        <h3 className='text-xl font-semibold'>Muyalogy</h3>
+        <h3 className='text-xl font-semibold'>Bright Path</h3>
       </Link>
 
       <div className='flex items-center'>

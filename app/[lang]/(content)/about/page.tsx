@@ -24,7 +24,7 @@ export default function About() {
     
        <div className='flex lg:flex-row lg:px-[60px] mx-5 lg:mx-[80px] px-4px  flex-col'>
           <div className='flex justify-center flex-col items-center'>
-               <h2 className='text-2xl flex text-azure  my-8 '>Muyalogy</h2>
+               <h2 className='text-2xl flex text-azure  my-8 '>Bright Path</h2>
                 <p className='text-base flex my-6'>
                 An innovative full-service learning platform that offers a comprehensive suite of online courses in a number of different areas. Our courses are designed to provide users with the most up-to-date knowledge and training in the fields of their choosing.
                  We produce, market, and manage our courses to ensure that our users have the best experience possible. With our diverse selection of courses, we strive to make learning accessible to everyone, no matter their location or level of expertise.
@@ -34,7 +34,7 @@ export default function About() {
             <h2 className='text-black'>Logo here</h2>
         <Image
            src='/image.png'
-           alt='Muyalogy Logo'
+           alt='Bright Path Logo'
            height={500}
            width={500}
         />
@@ -58,17 +58,17 @@ export default function About() {
             <div className='grid pt-6 py-8   lg:mx-[70px] mx-11 lg:grid-cols-3 md:grid-cols-2 '>
                 <div className='py-5 mr-3'>
                     <h2  className='text-3xl font-bold text-white'>Mission</h2>
-                    <p className='text-white font-sans py-5'> Our mission at Muyalogy is to provide a comprehensive and innovative learning platform that helps people of all ages and backgrounds to learn,grow, and share their knowledge with the world. 
+                    <p className='text-white font-sans py-5'> Our mission at Bright Path is to provide a comprehensive and innovative learning platform that helps people of all ages and backgrounds to learn,grow, and share their knowledge with the world. 
                         We strive to empower our users with essential training and life skills to help them reach their full potential.</p>
                 </div>
                 <div className='py-5 mx-2'>
                     <h2  className='text-3xl font-bold text-white'>Vision</h2>
-                    <p className='text-white font-sans py-5'> Our mission at Muyalogy is to provide a comprehensive and innovative learning platform that helps people of all ages and backgrounds to learn,grow, and share their knowledge with the world. 
+                    <p className='text-white font-sans py-5'> Our mission at Bright Path is to provide a comprehensive and innovative learning platform that helps people of all ages and backgrounds to learn,grow, and share their knowledge with the world. 
                         We strive to empower our users with essential training and life skills to help them reach their full potential.</p>
                 </div>
                 <div className='py-5'>
                     <h2  className='text-3xl font-bold text-white'>Values</h2>
-                    <p className='text-white font-sans py-5'> Our mission at Muyalogy is to provide a comprehensive and innovative learning platform that helps people of all ages and backgrounds to learn,grow, and share their knowledge with the world. 
+                    <p className='text-white font-sans py-5'> Our mission at Bright Path is to provide a comprehensive and innovative learning platform that helps people of all ages and backgrounds to learn,grow, and share their knowledge with the world. 
                         We strive to empower our users with essential training and life skills to help them reach their full potential.</p>
                 </div>
             </div>
