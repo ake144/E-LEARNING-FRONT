@@ -20,6 +20,7 @@ import axios from 'axios';
 import { isCoursePurchased } from '@/utils/check';
 import {getYouTubeEmbedUrl} from '@/utils/youtube'
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
@@ -134,15 +135,14 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
                 <p>{course.instructor}</p>
               </div>
             </div>
-            <div className="h-[400px] w-full mb-4 rounded-lg">
-              <iframe 
-                src={embedUrl} 
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                className='rounded-lg'
+            <div className="max-h-[400px] w-full mb-4 rounded-lg overflow-hidden">
+              <Image 
+                src={course.image_url}
+                alt={course.title}
+                layout="responsive"
+                width={400}
+                height={100}
+                className="object-cover h-full w-full"
               />
             </div>
             <div className="flex flex-col lg:hidden">
