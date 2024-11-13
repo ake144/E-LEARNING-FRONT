@@ -14,13 +14,13 @@ import {
 
 const testimonials = [
   {
-    name: 'Boaz Dereje',
+    name: 'Jhon',
     image: 'https://via.placeholder.com/100',
     text: 'I like Bright Path as a whole and specifically our instructor Nabil for teaching English well. His way of teaching, pronunciation, and elaboration is so wonderful. The only thing to improve for the Bright Path is the payment method...',
     rating: 5,
   },
   {
-    name:'Debora Mola',
+    name:'Doe',
     image:'https://via.placeholder.com/100',
     text:'From starting Bright Path website is best for learning online courses in Ethiopia.',
     rating: 5,

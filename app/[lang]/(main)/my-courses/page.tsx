@@ -2,26 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { AiTwotonePlayCircle } from 'react-icons/ai';
 import { LuBarChart } from 'react-icons/lu';
 import { MdOutlineTimer } from 'react-icons/md';
 import { FiAlignRight } from 'react-icons/fi';
 import Link from 'next/link';
-import MyCourse from '@/components/courses/myCourse';
 import { BaseUrl } from '@/utils/types/identifiers';
-import { isCoursePurchased } from '@/utils/check';
 
-
-function MyCourses() {
-  const { data: session, status } = useSession();
-  const [course, setCourse] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
+export default function Component() {
+  const { data: session } = useSession();
+  const [courses, setCourses] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const userId = session?.user?.id;
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,96 +27,92 @@ function MyCourses() {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        console.log("purchased",result);
         setIsLoading(false);
-        setCourse(result);
+        setCourses(result);
       } catch (error: any) {
-        setError(error);
+        setError(error.message);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [userId]);
 
-
-
   return (
-    <div>
-      <div className='mt-[90px] mx-[50px]'>
-      <h1 className='text-4xl items-center justify-center mb-4 font-bold text-gray-800'>My Courses</h1>
-      
-      
-      {error && <p className='text-gray-500 flex items-center justify-center mb-5'>An error occurred while fetching your courses</p>}
-  {isLoading && <p className='text-gray-500 flex items-center mt-[140px] justify-center mb-5'>Loading...</p>}
+    <div className="min-h-screen mt-[90px] mx-[50px]' bg-gray-100">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">My Courses</h1>
+        
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <strong className="font-bold">Error:</strong>
+            <span className="block sm:inline"> {error}</span>
+          </div>
+        )}
 
- {course?.length == 0 && <p className='text-xl  justify-center items-center  mt-11'>You have no purchased course</p>}
-      {course?.length && (
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pb-8 px-4 sm:px-0 font-sans">
-          {course?.map((course:any) => {
-            const slug = course.title.toLowerCase().replace(/\s+/g, '-');
-            return (
-              <div key={course.id} className="bg-white border w-full border-gray-200 rounded-lg shadow-md">
-                <div className="relative">
-                <Image
-                    src={course.image_url}
-                    alt="Course Thumbnail"
-                    width={700}
-                    height={280}
-                    className="rounded-t-lg"
-                  />
-                  <div className="absolute top-2 left-2 bg-yellow-400 text-black px-2 py-1 rounded text-xs font-bold">
-                    BEST SELLER
+        {isLoading && (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        )}
+
+        {!isLoading && courses.length === 0 && (
+          <p className="text-xl text-gray-600 text-center mt-12">You have no purchased courses</p>
+        )}
+
+        {courses.length > 0 && (
+          <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {courses.map((course: any) => {
+              const slug = course.title.toLowerCase().replace(/\s+/g, '-');
+              return (
+                <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                  <div className="relative">
+                    <Image
+                      src={course.image_url}
+                      alt="Course Thumbnail"
+                      width={700}
+                      height={280}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute top-2 left-2 bg-yellow-400 text-black px-2 py-1 rounded-full text-xs font-bold">
+                      BEST SELLER
+                    </div>
+                    <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <AiTwotonePlayCircle className="h-16 w-16 text-white" />
+                    </div>
                   </div>
-                  <div className="absolute inset-0 flex justify-center items-center">
-                    <AiTwotonePlayCircle className="h-16 w-16 text-white opacity-75" />
+                  <div className="p-6">
+                    <Link href={`/my-courses/${slug}-${course.id}`}>
+                      <h2 className="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors duration-300">{course.title}</h2>
+                    </Link>
+                    <p className="text-gray-600 text-sm mb-4">A course by: {course.user_id}</p>
+                    <p className="text-gray-700 mb-6 text-sm line-clamp-3">{JSON.parse(course.content).about}</p>
+                    <div className="flex justify-between items-center text-gray-600 text-sm border-t border-gray-200 pt-4">
+                      <div className="flex items-center">
+                        <LuBarChart className="mr-1" />
+                        <span>{course.level}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <MdOutlineTimer className="mr-1" />
+                        <span>{course.duration}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <FiAlignRight className="mr-1" />
+                        <span>36 Lessons</span>
+                      </div>
+                    </div>
+                    <Link href={`/my-courses/${slug}-${course.id}`}>
+                      <button className="w-full mt-6 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300">
+                        Get started
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <div className="p-4">
-                  <Link href={`/my-courses/${slug}-${course.id}`}>
-                    <h2 className="text-lg font-</Link>bold cursor-pointer">{course.title}</h2>
-                  </Link>
-                  <p className="text-gray-600 text-xs mt-2 mb-4">A course by : {course.user_id}</p>
-                  <p className="text-gray-500 mb-4 text-sm">{JSON.parse(course.content).about}</p>
-                  <div className="flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm">
-                    <div className="flex flex-col items-start">
-                      <div className="flex items-center mb-1">
-                        <LuBarChart />
-                        <span className="ml-1">Level</span>
-                      </div>
-                      <p className="font-bold">{course.level}</p>
-                    </div>
-                    <div className="flex flex-col items-start mr-1 ml-1">
-                      <div className="flex items-center mb-1">
-                        <MdOutlineTimer />
-                        <span className="ml-1">Duration</span>
-                      </div>
-                      <p className="ml-1 font-bold">{course.duration}</p>
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <div className="flex items-center mb-1 ml-1">
-                        <FiAlignRight />
-                        <span className="ml-1">Lessons</span>
-                      </div>
-                      <p className="ml-1 font-bold">36</p>
-                    </div>
-                  </div>
-                  <Link href={`/my-courses/${slug}-${course.id}`}>
-                    <button className="w-full mt-4 text-blue-500 border border-blue-600 py-2 px-4 rounded">
-                      Get started
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-
-      )}
-
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
-export default MyCourses

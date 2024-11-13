@@ -11,12 +11,9 @@ import Link from 'next/link';
 import { courseSchema } from '@/types/course';
 import { useAllCourses } from '@/utils/hooks/getCourse';
 
-
 function Cards() {
-  const { data:courses=[], isLoading, isError,error } = useAllCourses();
+  const { data: courses = [], isLoading, isError, error } = useAllCourses();
 
-  console.log('courses',courses)
-  console.log('courses',isError,error)
   if (isLoading) {  
     return (
       <div className="flex items-center justify-center mt-[200px] mx-[100px]">
@@ -25,6 +22,7 @@ function Cards() {
       </div>
     );
   }
+  
   if (isError) {
     return (
       <div className="flex items-center justify-center mt-[200px] mx-[100px]">
@@ -38,12 +36,12 @@ function Cards() {
     <>
       {courses?.length && (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full pb-8 px-4 sm:px-0 font-sans">
-          {courses?.map((course) => {
+          {courses.map((course) => {
             const slug = course.title.toLowerCase().replace(/\s+/g, '-');
             return (
               <div key={course.id} className="bg-white border w-full border-gray-200 rounded-lg shadow-md">
                 <div className="relative">
-                 <Image
+                  <Image
                     src={course.image_url}
                     alt="Course Thumbnail"
                     width={700}
@@ -61,8 +59,14 @@ function Cards() {
                   <Link href={`/courses/${slug}-${course.id}`}>
                     <h2 className="text-lg font-bold cursor-pointer">{course.title}</h2>
                   </Link>
-                  <p className="text-gray-600 text-xs mt-2 mb-4">A course by : {course.user_id}</p>
+                  <p className="text-gray-600 text-xs mt-2 mb-4">A course by: {course.user_id}</p>
                   <p className="text-gray-500 mb-4 text-sm">{JSON.parse(course.content).about}</p>
+                  
+                  {/* Display Price */}
+                  <p className="text-green-600 font-bold text-lg mb-4">
+                    {course.price ? `$${course.price}` : 'Free'}
+                  </p>
+                  
                   <div className="flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm">
                     <div className="flex flex-col items-start">
                       <div className="flex items-center mb-1">
@@ -96,8 +100,6 @@ function Cards() {
             );
           })}
         </div>
-
-
       )}
     </>
   );
