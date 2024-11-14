@@ -52,12 +52,15 @@ export default function Component() {
 
         {isLoading && (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500">
+                 Loading...
+
+            </div>
           </div>
         )}
 
         {!isLoading && courses.length === 0 && (
-          <p className="text-xl text-gray-600 text-center mt-12">You have no purchased courses</p>
+          <p className="text-xl text-gray-600 text-center mt-[200px] mx-[100px]">You have no purchased courses</p>
         )}
 
         {courses.length > 0 && (

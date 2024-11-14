@@ -113,7 +113,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <div className='mt-11 py-[100px] mx-[100px]'>Loading...</div>}
       {isError && (
         <div className='flex justify-center items-center mt-11 py-[100px] text-xl'>
           <FaRegFaceSadTear className='mx-5 h-11 w-[40px]' /> Error loading course
