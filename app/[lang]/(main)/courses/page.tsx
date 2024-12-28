@@ -33,7 +33,8 @@ const CoursesPage: React.FC = () => {
 
   useEffect(() => {
     if (category_id && courses) {
-      const filtered = courses.filter(course => course.category_id === Number(category_id));
+      const filtered = courses.filter(course => String(course.category_id) === category_id)
+
       setFilteredCourses(filtered);
     } else {
       setFilteredCourses(courses || []); 
