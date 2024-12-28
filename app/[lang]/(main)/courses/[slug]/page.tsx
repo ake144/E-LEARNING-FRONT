@@ -33,9 +33,14 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
   const slug = params.slug;
 
 
-  const numericId = slug.split('-').pop();
-  const { data: course, isLoading, isError } = useCourseBySlug(Number(numericId));
-  
+  // const numericId = slug.split('-').pop();
+  // const { data: course, isLoading, isError } = useCourseBySlug(Number(numericId));
+
+  const slugParts = slug.split('-');
+  const lastPart = slugParts.pop();
+  const numericId = lastPart ? parseInt(lastPart, 10) : NaN; // Ensure it's a valid integer
+const { data: course, isLoading, isError } = useCourseBySlug(numericId);
+
 
   const user = session?.user;
   const userId = user?.id;
