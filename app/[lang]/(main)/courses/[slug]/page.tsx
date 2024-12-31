@@ -18,7 +18,7 @@ import { useCourseBySlug } from '@/utils/hooks/getCourse';
 import { Currency } from 'lucide-react';
 import axios from 'axios';
 import { isCoursePurchased } from '@/utils/check';
-import {getYouTubeEmbedUrl} from '@/utils/youtube'
+// import {getYouTubeEmbedUrl} from '@/utils/youtube'
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -113,7 +113,7 @@ const { data: course, isLoading, isError } = useCourseBySlug(numericId);
     return <div>Error loading course</div>;
   }
 
-  const embedUrl = getYouTubeEmbedUrl(course.short_video_url);
+  // const embedUrl = getYouTubeEmbedUrl(course.short_video_url);
 
 
   return (
