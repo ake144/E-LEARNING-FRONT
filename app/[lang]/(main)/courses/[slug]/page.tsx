@@ -84,9 +84,15 @@ const { data: course, isLoading, isError } = useCourseBySlug(numericId);
      if(!response){
         throw new Error('Error processing payment request');
       }
-  
-      const responseData = response.data;
-      window.location.href = responseData.data.checkout_url;
+
+      const checkoutUrl = response.data;
+
+      if (!checkoutUrl) {
+          throw new Error('Error processing payment request: No checkout URL received');
+      }
+
+      // Redirect to the checkout URL
+      window.location.href = checkoutUrl;
     } catch (error) {
       console.error('Error', error);
     }
@@ -231,7 +237,7 @@ const { data: course, isLoading, isError } = useCourseBySlug(numericId);
                         </div>
                       </Link>
                     ) : (
-                      <button  onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+                      <button  onClick={()=>handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
                         Buy Course
                       </button>
                     )}
