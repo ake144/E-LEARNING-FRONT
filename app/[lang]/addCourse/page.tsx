@@ -1,222 +1,408 @@
-'use client';
+"use client"
 
-// components/AddCourseForm.tsx
-import { useForm, useFieldArray } from 'react-hook-form';
-import { CourseSchema } from '@/utils/types/identifiers';
-import { useCreateCourse } from '@/utils/hooks/getCourse';
-import { toast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
-import { useSession } from 'next-auth/react';
+
+import { useForm, useFieldArray, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useSession } from "next-auth/react"
+import { toast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Plus, Minus, Trash2 } from "lucide-react"
+import { CourseFormData, courseSchema } from "@/lib/validation"
+import { createCourse } from "@/utils/quries/getcourse"
 
 const AddCourseForm = () => {
-  const { data: session } = useSession();
-  const user = session;
+  const { data: session } = useSession()
+  const queryClient = useQueryClient()
 
-  const { register, handleSubmit, control, reset } = useForm<any>({
-    defaultValues: {
-      units: [{ id: Date.now(), title: '', lessons: [{ id: Date.now(), title: '', duration: '' }] }],
-      ratings: [{ id: Date.now(), value: 0, message: '', course_id: 0, reviewer_id: 0 }],
-    },
-  });
-
-  const { fields: unitFields, append: appendUnit, remove: removeUnits } = useFieldArray({
+  const {
+    register,
     control,
-    name: "units",
-  });
-
-  // const { fields: ratingFields, append: appendRating } = useFieldArray({
-  //   control,
-  //   name: "ratings",
-  // });
-
-  const ManageLesson = ({ unitIndex }: { unitIndex: number }) => {
-    const { fields: lessonFields, remove: removeLesson, append: appendLesson } = useFieldArray({
-      control,
-      name: `units.${unitIndex}.lessons`
-    });
-
-    return (
-      <div className='my-4'>
-        {lessonFields.map((lesson, lessonIndex) => (
-          <div key={lesson.id} className='py-4 bg-gray-100 p-4 rounded-lg shadow-md'>
-            <div className='flex justify-between items-center'>
-              <div className='mb-2 font-semibold text-lg'>Lesson</div>
-              <button
-                type='button'
-                onClick={() => removeLesson(lessonIndex)}
-                className='text-red-500 text-sm underline'
-              >
-                Remove Lesson
-              </button>
-            </div>
-            <label title={'Title'} className='block mb-2'>
-              <span className='text-gray-700'>Title</span>
-              <input
-                placeholder='Enter lesson title'
-                className='block w-full mt-1 border border-gray-300 rounded-md px-3 py-2'
-                {...register(`units.${unitIndex}.lessons.${lessonIndex}.title`)}
-              />
-            </label>
-          </div>
-        ))}
-
-        <button
-          type='button'
-          onClick={() => appendLesson({ id: Date.now(), title: '', duration: '' })}
-          className='text-blue-500 w-full text-center underline mt-2'
-        >
-          Add Lesson
-        </button>
-      </div>
-    );
-  };
-
-  const { mutate: createCourse } = useCreateCourse();
-
-  const onSubmit = (data: any) => {
-    const structuredContent = {
-      about: data.about,
-      requirements: data.requirements.split('\n'),
-      targetAudience: data.targetAudience.split('\n'),
-      units: data.units.map((unit: any) => ({
-        title: unit.title,
-        lessons: unit.lessons.map((lesson: any) => ({
-          title: lesson.title,
-          duration: lesson.duration
-        }))
-      }))
-    };
-  
-    const finalData = {
-      ...data,
-      user_id: user?.user?.id,
-      content: JSON.stringify(structuredContent)
-    };
-  
-    createCourse(finalData, {
-      onSuccess: () => {
-        toast({
-          variant: "default",
-          title: 'Course created successfully',
-          description: 'You have successfully added a new course.',
-        });
-        reset();
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CourseFormData>({
+    resolver: zodResolver(courseSchema),
+    defaultValues: {
+      title: "",
+      level: "Beginner",
+      language: "",
+      duration: "",
+      trending: false,
+      price: 0,
+      old_price: undefined,
+      content: {
+        about: "",
+        requirements: [""],
+        targetAudience: [""],
+        whatYouWillLearn: [""],
+        units: [
+          {
+            title: "",
+            description: "",
+            lessons: [
+              {
+                title: "",
+                duration: "",
+                videoUrl: "",
+                resources: [],
+                quiz: [],
+              },
+            ],
+          },
+        ],
       },
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Course creation failed",
-          description: "An unexpected error occurred.",
-        });
-      },
-    });
-  };
-  
+      category_id: 1,
+      image_url: "",
+      short_video_url: "",
+    },
+  })
+
+  const {
+    fields: unitFields,
+    append: appendUnit,
+    remove: removeUnit,
+  } = useFieldArray({
+    control,
+    name: "content.units",
+  })
+
+  const { mutate, status } = useMutation(createCourse, {
+    onSuccess: () => {
+      toast({ title: "Course created successfully", description: "Your new course has been added." })
+      reset()
+      queryClient.invalidateQueries(["courses"])
+    },
+    onError: () => {
+      toast({ title: "Error", description: "Failed to create course. Please try again.", variant: "destructive" })
+    },
+  })
+
+  const onSubmit = (data: CourseFormData) => {
+    if (session?.user?.id) {
+      mutate({ ...data, user_id: session.user.id })
+    } else {
+      toast({ title: "Error", description: "You must be logged in to create a course.", variant: "destructive" })
+    }
+  }
 
   return (
-    <div className='container mx-auto p-4'>
-      <form onSubmit={handleSubmit(onSubmit)} className="p-6 bg-white shadow-lg rounded-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Add New Course</h2>
-        
-        {/* Basic Course Information */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Course Title</label>
-            <input {...register("title")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Level</label>
-            <input {...register("level")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Short Video URL</label>
-            <input {...register("short_video_url")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Image URL</label>
-            <input {...register("image_url")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Language</label>
-            <input {...register("language")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Duration</label>
-            <input {...register("duration")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          
-          <div>
-          <div className="md:col-span-2">
-            <h3 className="text-xl font-bold mt-5 mb-3">Course Content</h3>
-            <div className='mb-4'>
-              <label className="block text-sm font-medium text-gray-700">About the Course</label>
-              <textarea {...register("about")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 max-w-4xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>Add New Course</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="title">Course Title</Label>
+              <Input id="title" {...register("title")} placeholder="Enter course title" />
+              {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
             </div>
-            <div className='mb-4'>
-              <label className="block text-sm font-medium text-gray-700">Requirements (separate each requirement with a new line)</label>
-              <textarea {...register("requirements")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-            </div>
-            <div className='mb-4'>
-              <label className="block text-sm font-medium text-gray-700">Who is this course for? (separate each audience with a new line)</label>
-              <textarea {...register("targetAudience")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-            </div>
-          </div>
-        </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Price</label>
-            <input type="number" {...register("price")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Category ID</label>
-            <input type="number" {...register("category_id")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Instructor</label>
-            <input {...register("instructor")} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-          </div>
-       
-
-        {/* Units and Lessons */}
-        <div className='mt-6'>
-          <h3 className="text-2xl font-semibold mb-4 text-gray-800">Units</h3>
-          {unitFields.map((unit, unitIndex) => (
-            <div key={unit.id} className="mb-4 p-4 bg-gray-50 rounded-md shadow-md">
-              <div className='flex justify-between items-center mb-2'>
-                <label className="block text-sm font-medium text-gray-700">Unit Title</label>
-                <Button
-                  type='button'
-                  onClick={() => removeUnits(unitIndex)}
-                  className='text-red-500 text-sm underline'
-                >
-                  Remove Unit
-                </Button>
-              </div>
-              <input
-                placeholder='Enter unit title'
-                {...register(`units.${unitIndex}.title`)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            <div className="space-y-2">
+              <Label htmlFor="level">Level</Label>
+              <Controller
+                name="level"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Beginner">Beginner</SelectItem>
+                      <SelectItem value="Intermediate">Intermediate</SelectItem>
+                      <SelectItem value="Advanced">Advanced</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
               />
-
-              {/* Lessons */}
-              <ManageLesson unitIndex={unitIndex} />
+              {errors.level && <p className="text-sm text-red-500">{errors.level.message}</p>}
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => appendUnit({ id: Date.now(), title: '', lessons: [{ id: Date.now(), title: '', duration: '' }] })}
-            className="w-full px-4 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Add Unit
-          </button>
-        </div>
-        </div>
-        <button type="submit" className="mt-9 items-center justify-center flex px-4 py-2 bg-green-500 text-white rounded-md">
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-};
+            <div className="space-y-2">
+              <Label htmlFor="language">Language</Label>
+              <Input id="language" {...register("language")} placeholder="e.g., English, Spanish" />
+              {errors.language && <p className="text-sm text-red-500">{errors.language.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="duration">Duration</Label>
+              <Input id="duration" {...register("duration")} placeholder="e.g., 10 hours" />
+              {errors.duration && <p className="text-sm text-red-500">{errors.duration.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="price">Price</Label>
+              <Input
+                id="price"
+                type="number"
+                {...register("price", { valueAsNumber: true })}
+                placeholder="Enter price"
+              />
+              {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="old_price">Old Price (Optional)</Label>
+              <Input
+                id="old_price"
+                type="number"
+                {...register("old_price", { valueAsNumber: true })}
+                placeholder="Enter old price"
+              />
+              {errors.old_price && <p className="text-sm text-red-500">{errors.old_price.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="image_url">Image URL</Label>
+              <Input id="image_url" {...register("image_url")} placeholder="Enter image URL" />
+              {errors.image_url && <p className="text-sm text-red-500">{errors.image_url.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="short_video_url">Short Video URL</Label>
+              <Input id="short_video_url" {...register("short_video_url")} placeholder="Enter short video URL" />
+              {errors.short_video_url && <p className="text-sm text-red-500">{errors.short_video_url.message}</p>}
+            </div>
+          </div>
 
-export default AddCourseForm;
+          <div className="flex items-center space-x-2">
+            <Controller
+              name="trending"
+              control={control}
+              render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} id="trending" />}
+            />
+            <Label htmlFor="trending">Trending</Label>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="content.about">About Course</Label>
+            <Textarea id="content.about" {...register("content.about")} placeholder="Describe your course" />
+            {errors.content?.about && <p className="text-sm text-red-500">{errors.content.about.message}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <Label>Requirements</Label>
+            <Controller
+              name="content.requirements"
+              control={control}
+              render={({ field }) => (
+                <div className="space-y-2">
+                  {field.value.map((req, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Input
+                        value={req}
+                        onChange={(e) => {
+                          const newReqs = [...field.value]
+                          newReqs[index] = e.target.value
+                          field.onChange(newReqs)
+                        }}
+                        placeholder={`Requirement ${index + 1}`}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          const newReqs = field.value.filter((_, i) => i !== index)
+                          field.onChange(newReqs)
+                        }}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => field.onChange([...field.value, ""])}
+                  >
+                    <Plus className="h-4 w-4 mr-2" /> Add Requirement
+                  </Button>
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Target Audience</Label>
+            <Controller
+              name="content.targetAudience"
+              control={control}
+              render={({ field }) => (
+                <div className="space-y-2">
+                  {field.value.map((audience, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Input
+                        value={audience}
+                        onChange={(e) => {
+                          const newAudience = [...field.value]
+                          newAudience[index] = e.target.value
+                          field.onChange(newAudience)
+                        }}
+                        placeholder={`Target Audience ${index + 1}`}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          const newAudience = field.value.filter((_, i) => i !== index)
+                          field.onChange(newAudience)
+                        }}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => field.onChange([...field.value, ""])}
+                  >
+                    <Plus className="h-4 w-4 mr-2" /> Add Target Audience
+                  </Button>
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>What You Will Learn</Label>
+            <Controller
+              name="content.whatYouWillLearn"
+              control={control}
+              render={({ field }) => (
+                <div className="space-y-2">
+                  {field.value.map((item, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Input
+                        value={item}
+                        onChange={(e) => {
+                          const newItems = [...field.value]
+                          newItems[index] = e.target.value
+                          field.onChange(newItems)
+                        }}
+                        placeholder={`Learning Objective ${index + 1}`}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          const newItems = field.value.filter((_, i) => i !== index)
+                          field.onChange(newItems)
+                        }}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => field.onChange([...field.value, ""])}
+                  >
+                    <Plus className="h-4 w-4 mr-2" /> Add Learning Objective
+                  </Button>
+                </div>
+              )}
+            />
+          </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="units">
+              <AccordionTrigger>Course Units</AccordionTrigger>
+              <AccordionContent>
+                {unitFields.map((field, index) => (
+                  <div key={field.id} className="space-y-4 mb-4 p-4 border rounded">
+                    <div className="flex justify-between items-center">
+                      <h4 className="text-lg font-semibold">Unit {index + 1}</h4>
+                      <Button type="button" variant="ghost" size="icon" onClick={() => removeUnit(index)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <Input {...register(`content.units.${index}.title`)} placeholder="Unit Title" />
+                    <Textarea {...register(`content.units.${index}.description`)} placeholder="Unit Description" />
+                    <div className="space-y-2">
+                      {field.lessons.map((lesson, lessonIndex) => (
+                        <div key={lessonIndex} className="space-y-2 p-2 border rounded">
+                          <Input
+                            {...register(`content.units.${index}.lessons.${lessonIndex}.title`)}
+                            placeholder="Lesson Title"
+                          />
+                          <Input
+                            {...register(`content.units.${index}.lessons.${lessonIndex}.duration`)}
+                            placeholder="Lesson Duration"
+                          />
+                          <Input
+                            {...register(`content.units.${index}.lessons.${lessonIndex}.videoUrl`)}
+                            placeholder="Lesson Video URL"
+                          />
+                          {/* Add fields for resources and quiz here if needed */}
+                        </div>
+                      ))}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const lessons = [...field.lessons]
+                          lessons.push({ title: "", duration: "", videoUrl: "", resources: [], quiz: [] })
+                          // Update the specific unit's lessons
+                          const updatedUnits = [...unitFields]
+                          updatedUnits[index] = { ...updatedUnits[index], lessons }
+                          // Set the updated units back to the form
+                          control._formValues.content.units = updatedUnits
+                          control._updateFieldArray("content.units", updatedUnits)
+                        }}
+                      >
+                        <Plus className="h-4 w-4 mr-2" /> Add Lesson
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    appendUnit({
+                      title: "",
+                      description: "",
+                      lessons: [{ title: "", duration: "", videoUrl: "", resources: [], quiz: [] }],
+                    })
+                  }
+                >
+                  <Plus className="h-4 w-4 mr-2" /> Add Unit
+                </Button>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          <div className="space-y-2">
+            <Label htmlFor="category_id">Category ID</Label>
+            <Input
+              id="category_id"
+              type="number"
+              {...register("category_id", { valueAsNumber: true })}
+              placeholder="Enter category ID"
+            />
+            {errors.category_id && <p className="text-sm text-red-500">{errors.category_id.message}</p>}
+          </div>
+
+          <Button type="submit" className="w-full" disabled={status === 'loading'}>
+            {status === 'loading' ? "Creating Course..." : "Create Course"}
+          </Button>
+        </CardContent>
+      </Card>
+    </form>
+  )
+}
+
+export default AddCourseForm
+

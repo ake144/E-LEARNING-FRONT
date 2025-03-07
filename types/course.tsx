@@ -12,6 +12,7 @@ image_url: string;
 content: string;
 category_id: number;
 user_id: number;
+
 }
 
 

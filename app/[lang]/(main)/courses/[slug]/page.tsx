@@ -41,7 +41,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
   const numericId = lastPart ? parseInt(lastPart, 10) : NaN; // Ensure it's a valid integer
 const { data: course, isLoading, isError } = useCourseBySlug(numericId);
 
-
+console.log("session", session)
   const user = session?.user;
   const userId = user?.id;
 
@@ -52,9 +52,12 @@ const { data: course, isLoading, isError } = useCourseBySlug(numericId);
       router.push('/auth/signin');
       return 
     }
+
   
     const courseId = Number(numericId)
     const { Fname, Lname, email, username } = user;
+
+ 
     const first_name = Fname;
     const last_name = Lname; // Ensure last_name is available
     const phone_number = '1234567890'; // Add a phone number if available
@@ -237,7 +240,7 @@ const { data: course, isLoading, isError } = useCourseBySlug(numericId);
                         </div>
                       </Link>
                     ) : (
-                      <button  onClick={()=>handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
+                      <button  onClick={handlePay} className="flex bg-green-500 text-white py-2 px-4 rounded mb-4">
                         Buy Course
                       </button>
                     )}

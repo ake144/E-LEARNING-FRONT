@@ -1,10 +1,60 @@
-import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 
 
 export const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 
 export const return_url = process.env.NEXT_PUBLIC_RETURN_URL
+
+
+export interface Lesson {
+    title: string
+    duration: string
+    videoUrl: string
+    resources?: {
+      title: string
+      type: "pdf" | "link" | "code" | "video"
+      url: string
+      description?: string
+    }[]
+    quiz?: {
+      question: string
+      options: string[]
+      correctAnswer: number
+    }[]
+  }
+  
+  export interface Unit {
+    title: string
+    description?: string
+    lessons: Lesson[]
+  }
+  
+  export interface CourseContent {
+    about: string
+    requirements: string[]
+    targetAudience: string[]
+    whatYouWillLearn: string[]
+    units: Unit[]
+  }
+  
+  export interface Course {
+    id: number
+    title: string
+    level: "Beginner" | "Intermediate" | "Advanced"
+    language: string
+    duration: string
+    trending: boolean
+    price: number
+    old_price?: number
+    content: CourseContent
+    created_at: Date
+    category_id: number
+    user_id: number
+    image_url: string
+    short_video_url: string
+  }
+  
+  
 
 // Define the Rating schem
 export interface RatingSchema {

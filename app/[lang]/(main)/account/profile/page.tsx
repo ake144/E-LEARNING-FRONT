@@ -19,6 +19,7 @@ export default function Profile() {
 
   const { mutate: updateProfile, isPending: updatingProfile, isError: updateError, isSuccess: updateSuccess } = useUpdateProfile();
 
+  
   const onSubmit = (data: any) => {
     updateProfile(data, {
       onSuccess: () => {

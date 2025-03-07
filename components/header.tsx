@@ -39,6 +39,8 @@ export default  function Navbar({ lang }: { lang: any }) {
  
   const userData  =  useSession();
 
+  console.log('userData',userData)
+
   const user = userData.data?.user;
 
   return (

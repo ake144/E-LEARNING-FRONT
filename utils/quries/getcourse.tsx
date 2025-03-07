@@ -228,3 +228,98 @@ export const deleteRating = async (id: string) => {
 
   return await res.json();
 }
+
+// New API functions for lesson completion and certificates
+
+export interface LessonCompletionData {
+  userId: string
+  courseId: number
+  unitIndex: number
+  lessonIndex: number
+  isCompleted: boolean
+}
+
+export const updateLessonCompletion = async (data: LessonCompletionData) => {
+  const res = await fetch(`${BaseUrl}/progress`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to update lesson completion status")
+  }
+
+  return await res.json()
+}
+
+export const getCompletedLessons = async (courseId: number, userId: string) => {
+  const res = await fetch(`${BaseUrl}/progress/${courseId}?userId=${userId}`)
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch completed lessons")
+  }
+
+  return await res.json()
+}
+
+export const getCourseCompletionStatus = async (courseId: number, userId: string) => {
+  const res = await fetch(`${BaseUrl}/progress/status/${courseId}?userId=${userId}`)
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch course completion status")
+  }
+
+  return await res.json()
+}
+
+export interface CertificateData {
+  userId: string
+  courseId: number
+  userName: string
+  completionDate: string
+}
+
+export const generateCertificate = async (data: CertificateData) => {
+  const res = await fetch(`${BaseUrl}/certificates`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to generate certificate")
+  }
+
+  return await res.json()
+}
+
+export const getCertificate = async (courseId: number, userId: string) => {
+  const res = await fetch(`${BaseUrl}/certificates?courseId=${courseId}&userId=${userId}`)
+
+  if (!res.ok && res.status !== 404) {
+    // 404 is acceptable - means no certificate yet
+    throw new Error("Failed to fetch certificate")
+  }
+
+  return res.status === 404 ? null : await res.json()
+}
+
+export const verifyCertificate = async (certificateId: string) => {
+  const res = await fetch(`${BaseUrl}/certificates/verify?id=${certificateId}`)
+
+  if (!res.ok) {
+    throw new Error("Failed to verify certificate")
+  }
+
+  return await res.json()
+}
+
+export const downloadCertificate = async (certificateId: string) => {
+  window.open(`${BaseUrl}/certificates/${certificateId}/download`, "_blank")
+}
+
