@@ -11,6 +11,7 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth";
 import { Profile } from "@/components/tools/profile";
 import  image from "@/public/learning.png";
+import TrustedBy from "@/components/ui/TrustedBy";
 
 
 
@@ -35,6 +36,8 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
             </div>
             <HomeTitle lang={page} />
           </div>
+          
+
           <div className="flex lg:hidden flex-row gap-3 mt-8 mb-8">
           {user ? ( <div  className='flex flex-row'>
             <Link href="/profile">
@@ -60,6 +63,10 @@ export default async function Home({ params: { lang } }: { params: { lang: Local
           </div>
           <Cards />
         </div>
+
+          <div>
+             <TrustedBy  />
+          </div>
         <div className="fixed bottom-0 p-4 right-0 flex h-48 w-[70px] items-end justify-end bg-gradient-to-t">
           <Button className="bg-azure lg:flex hidden hover:bg-azure text-white p-4 rounded-full">
             <FaRegQuestionCircle className="bg-azure w-6 h-5 mr-2" />

@@ -21,6 +21,11 @@ import { isCoursePurchased } from '@/utils/check';
 // import {getYouTubeEmbedUrl} from '@/utils/youtube'
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+const PlyrVideo = dynamic(() => import('@/components/mediaPlayer/player'), {
+  ssr: false,
+
+});
 
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
@@ -102,6 +107,9 @@ console.log("session", session)
   };
 
 
+
+
+
   const isPurchased = isCoursePurchased(Number(numericId), userId,BaseUrl)
 
   console.log(isPurchased)
@@ -149,15 +157,8 @@ console.log("session", session)
                 <p>{course.instructor}</p>
               </div>
             </div>
-            <div className="max-h-[400px] w-full mb-4 rounded-lg overflow-hidden">
-              <Image 
-                src={course.image_url}
-                alt={course.title}
-                layout="responsive"
-                width={400}
-                height={100}
-                className="object-cover h-full w-full"
-              />
+            <div className="max-h-[800px] w-full mb-4 rounded-lg overflow-hidden">
+                 <PlyrVideo    key={course.title} videoId={course.short_video_url}   />
             </div>
             <div className="flex flex-col lg:hidden">
               <div className="p-4 w-full bg-white border mb-5 sticky top-0">

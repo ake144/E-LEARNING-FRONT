@@ -9,10 +9,10 @@ const PlyrVideoComponent = ({ videoId }: { videoId: string }) => {
     if (typeof window !== 'undefined') {
       const player = new Plyr('#player', {
         controls: [
-          'play', 'pause', 'rewind', 'duration', 'fast-forward', 'volume', 'captions', 'current-time', 'play-large', 'restart'
+          'play', 'pause','airplay', 'rewind', 'duration', 'fast-forward', 'volume', 'captions', 'current-time', 'play-large', 'fullscreen', 'restart'
         ],
         settings: [],
-        fullscreen: { enabled: true, fallback: true, iosNative: true },
+        fullscreen: { enabled: true, fallback: true,  },
       });
 
       const hideYouTubeButtons = () => {
@@ -57,7 +57,7 @@ const PlyrVideoComponent = ({ videoId }: { videoId: string }) => {
   }, [videoId]);
 
   return (
-    <div className="plyr__video-embed" style={{ width: '800px', height: '450px', position: 'relative' }} id="player">
+    <div className="plyr__video-embed" style={{ width: '1200px', height: '600px', position: 'relative' }} id="player">
       <iframe
         src={`https://www.youtube.com/embed/${videoId}?autoplay=0&controls=0&disablekb=1&playsinline=1&cc_load_policy=0&cc_lang_pref=auto&modestbranding=1&showinfo=0&iv_load_policy=3&rel=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

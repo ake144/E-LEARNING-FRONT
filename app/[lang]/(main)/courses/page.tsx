@@ -15,8 +15,6 @@ import { useAllCourses } from '@/utils/hooks/getCourse';
 
 import { Separator } from '@radix-ui/react-separator';
 import { categorySchema, courseSchema } from '@/types/course';
-import LoadingScreen from '@/components/admin/suspense/loading';
-
 
 const CoursesPage: React.FC = () => {
   const params = useSearchParams();
@@ -104,21 +102,24 @@ const CoursesPage: React.FC = () => {
             const slug = course.title.toLowerCase().replace(/\s+/g, '-');
             return (
               <div key={course.id} className="bg-white border border-gray-200 rounded-lg shadow-md">
-                <div className="relative">
-                  <Image
+                <Link href={`/courses/${slug}-${course.id}`}>
+                  <div className="relative">
+                    <Image
                     src={course.image_url}
                     alt="Course Thumbnail"
                     width={700}
                     height={280}
                     className="rounded-t-lg"
                   />
+                 
                   <div className="absolute top-2 left-2 bg-yellow-400 text-black px-2 py-1 rounded text-xs font-bold">
                     BEST SELLER
                   </div>
                   <div className="absolute inset-0 flex justify-center items-center">
                     <AiTwotonePlayCircle className="h-16 w-16 text-white opacity-75" />
                   </div>
-                </div>
+                  </div>
+                </Link>
                 <div className="p-4">
                 <Link href={`/courses/${slug}-${course.id}`}>
                     <p className="text-lg font-bold cursor-pointer">{course.title}</p>
