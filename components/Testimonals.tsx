@@ -1,102 +1,121 @@
-import React, { useState } from 'react';
-import { FaArrowLeft, FaArrowRight, FaStar } from 'react-icons/fa';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
-  import { Button } from './ui/button';
+"use client"
+
+import React from "react"
 
 
-const testimonials = [
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Marquee } from "./ui/marquee"
+
+const reviews = [
   {
-    name: 'Jhon',
-    image: 'https://via.placeholder.com/100',
-    text: 'I like Bright Path as a whole and specifically our instructor Nabil for teaching English well. His way of teaching, pronunciation, and elaboration is so wonderful. The only thing to improve for the Bright Path is the payment method...',
-    rating: 5,
+    name: "Sarah Johnson",
+    username: "@sarahj",
+    body: "This profile generator has revolutionized my job search. I've received more interview requests than ever before!",
+    img: "/placeholder.svg?height=80&width=80",
+    role: "Software Engineer"
   },
   {
-    name:'Doe',
-    image:'https://via.placeholder.com/100',
-    text:'From starting Bright Path website is best for learning online courses in Ethiopia.',
-    rating: 5,
-}
-];
+    name: "Michael Chen",
+    username: "@mikechen",
+    body: "The ability to export my profile in multiple formats has made it incredibly easy to apply for roles across different platforms.",
+    img: "/placeholder.svg?height=80&width=80",
+    role: "UX Designer"
+  },
+  {
+    name: "Emily Rodriguez",
+    username: "@emrod",
+    body: "The AI-powered insights have helped me optimize my profile. I'm now attracting opportunities that truly align with my skills.",
+    img: "/placeholder.svg?height=80&width=80",
+    role: "Data Scientist"
+  },
+  {
+    name: "Alex Thompson",
+    username: "@alexthom",
+    body: "The seamless integrations with other apps have streamlined my entire job application process. It's a game-changer!",
+    img: "/placeholder.svg?height=80&width=80",
+    role: "Product Manager"
+  },
+  {
+    name: "Olivia Parker",
+    username: "@oliviap",
+    body: "As a freelancer, having a centralized profile that I can easily customize for different clients has been invaluable.",
+    img: "/placeholder.svg?height=80&width=80",
+    role: "Freelance Writer"
+  },
+  {
+    name: "David Kim",
+    username: "@davidk",
+    body: "The analytics dashboard gives me great insights into how recruiters are interacting with my profile. It's helped me refine my approach.",
+    img: "/placeholder.svg?height=80&width=80",
+    role: "Marketing Specialist"
+  },
+]
 
-const Testimonials = () => {
-  const [current, setCurrent] = React.useState(0);
-  const [iseOpen,setIsOpen] = useState(false)
+const firstRow = reviews.slice(0, reviews.length / 2)
+const secondRow = reviews.slice(reviews.length / 2)
 
-  const nextTestimonial = () => {
-    setCurrent((current + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrent((current - 1 + testimonials.length) % testimonials.length);
-  };
-
+const ReviewCard = ({
+  img,
+  name,
+  username,
+  body,
+  role,
+}: {
+  img: string
+  name: string
+  username: string
+  body: string
+  role: string
+}) => {
   return (
-    <div className="flex flex-col items-center">
-      <h2 className="text-3xl font-bold mt-4 mb-4">Testimonials</h2>
-      <div className="flex items-center justify-center w-full max-w-3xl">
-        <button onClick={prevTestimonial} className="text-blue-500 hover:text-blue-700">
-          <FaArrowLeft size={24} />
-        </button>
-        <div className="bg-white p-6 mx-4 shadow-lg rounded-lg flex flex-col items-center text-center w-full">
-          <img
-            className="rounded-full w-20 h-20 mb-4"
-            src={testimonials[current].image}
-            alt={testimonials[current].name}
-          />
-          <h3 className="text-xl font-semibold">{testimonials[current].name}</h3>
-
-
-          <p className="text-gray-600 mt-2">{testimonials[current].text}</p>
-
-          <Dialog>
-                <DialogTrigger asChild>
-                    <a onClick={()=>{setIsOpen(true)}} className="text-blue-500 cursor-pointer mt-2">Read More</a>
-                </DialogTrigger>
-          <DialogContent className=" lg:w-[500px] w-[400px]   dialog-overlay bg-white">     
-                     <div className="flex flex-col  items-center text-center w-full ">
-                            <img
-                                className="rounded-full w-20 h-20 mb-4"
-                                src={testimonials[current].image}
-                                alt={testimonials[current].name}
-                            />
-                            <h3 className="text-xl font-semibold">{testimonials[current].name}</h3>
-
-
-                            <p className="text-gray-600 mt-2">{testimonials[current].text}</p>
-                            <div className="flex mt-4">
-                            {[...Array(testimonials[current].rating)].map((_, i) => (
-                            <FaStar key={i} className="text-yellow-500" />
-                            ))}
-                        </div>
-
-                     </div>
-                       
-                </DialogContent>
-
-                </Dialog>
-
-          <div className="flex mt-4">
-            {[...Array(testimonials[current].rating)].map((_, i) => (
-              <FaStar key={i} className="text-yellow-500" />
-            ))}
+    <Card className="w-[350px] mx-4 my-6 bg-background/80 backdrop-blur-sm hover:bg-accent transition-colors duration-300">
+      <CardContent className="p-6">
+        <div className="flex items-center space-x-4 mb-4">
+          <Avatar>
+            <AvatarImage src={img} alt={name} />
+            <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          </Avatar>
+          <div>
+            <h3 className="font-semibold">{name}</h3>
+            <p className="text-sm text-muted-foreground">{username}</p>
           </div>
+          <Badge variant="secondary" className="ml-auto">
+            {role}
+          </Badge>
         </div>
+        <blockquote className="text-sm italic">{body}</blockquote>
+      </CardContent>
+    </Card>
+  )
+}
 
-        <button onClick={nextTestimonial} className="text-blue-500 hover:text-blue-700">
-          <FaArrowRight size={24} />
-        </button>
+export default function TestimonialsSection() {
+  return (
+    <section className="py-24 bg-gradient-to-b from-background to-secondary/20">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          Loved by Many
+        </h2>
+        <p className="text-base text-center  mb-16 max-w-2xl mx-auto">
+          Join thousands of professionals who have transformed their careers with our intelligent profile generator.
+        </p>
+        <div className="relative w-full overflow-hidden">
+          <Marquee className="py-4" pauseOnHover speed={20}>
+            {firstRow.map((review) => (
+              <ReviewCard key={review.username} {...review} />
+            ))}
+          </Marquee>
+          <Marquee className="py-4" pauseOnHover speed={20} reverse>
+            {secondRow.map((review) => (
+              <ReviewCard key={review.username} {...review} />
+            ))}
+          </Marquee>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-background"></div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-background"></div>
+        </div>
       </div>
-    </div>
-  );
-};
-
-export default Testimonials;
+    </section>
+  )
+}

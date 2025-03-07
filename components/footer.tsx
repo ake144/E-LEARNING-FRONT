@@ -23,13 +23,12 @@ function Footer() {
           </div>
           <div className="flex flex-wrap justify-center space-x-4 mb-6 lg:mb-0">
             <Button className="bg-white hover:bg-white text-black h-7 mb-2 lg:mb-0">
-              <Link href='https://forms.gle/tTpeQLNHBfxoMmj17'>
+              <Link href='/'>
                 <p className="text-xs">BECOME INSTRUCTOR</p>
               </Link>
             </Button>
             <Link href="/contact" className="text-sm">Contact Us</Link>
             <Link href="/about"><p className="text-sm">About Us</p></Link>
-            <Link href="https://docs.google.com/document/d/17dlgjLFcBNsTWX20Z3Bjp6U-hKG14CXCRMRb-VvK4cg/edit"><p className="text-sm">Press Kit</p></Link>
             <Link href="/faq"><p className="text-sm">FAQ</p></Link>
             <Link href="/terms"><p className="text-sm">Terms of Service</p></Link>
             <Link href="/privacy"><p className="text-sm">Privacy Policy</p></Link>
