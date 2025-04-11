@@ -124,8 +124,10 @@ const CoursesPage: React.FC = () => {
                 <Link href={`/courses/${slug}-${course.id}`}>
                     <p className="text-lg font-bold cursor-pointer">{course.title}</p>
                   </Link>
-                  <p className="text-gray-600 text-xs mt-2 mb-4">A course by: {course.user_id}</p>
-                  <p className="text-gray-500 mb-4 text-sm">{JSON.parse(course.content).about}</p>
+                  <p className="text-gray-600 text-xs mt-2 mb-4">A course by: {course?.user_id}</p>
+                  
+                  {/* <p className="text-gray-500 mb-4 text-sm">{JSON?.parse(course?.content)?.about}</p> */}
+                  <p className="text-gray-500 mb-4 text-sm">{course?.content}</p>
                   <div className="flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm">
                     <div className="flex flex-col items-start">
                       <div className="flex items-center mb-1">
