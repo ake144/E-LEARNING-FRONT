@@ -195,21 +195,21 @@ console.log("session", session)
                 </div>
               </div>
               <div className='text-sm mb-5'>
-                <p>{JSON.parse(course.content)?.about}</p>
+                <p>{(course.content)?.about}</p>
                 <h2 className='text-2xl font-bold mt-5 mb-3'>Requirements</h2>
                 <ul className='ml-6 list-disc'>
-                  {JSON.parse(course.content)?.requirements?.map((item: any, index: any) => (
+                  {(course.content)?.requirements?.map((item: any, index: any) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>
                 <h2 className='text-2xl font-bold mt-5 mb-3'>Who is this course for?</h2>
                 <ul className='ml-6 list-disc'>
-                  {JSON.parse(course.content)?.targetAudience?.map((item: any, index: any) => (
+                  {(course.content)?.targetAudience?.map((item: any, index: any) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>
                 <h2 className='text-2xl font-bold mt-5'>What you will learn</h2>
-                {JSON.parse(course.content)?.units?.map((unit: { title: any; lessons: any[]; }, unitIndex: any) => (
+                {(course.content)?.units?.map((unit: { title: any; lessons: any[]; }, unitIndex: any) => (
                   <div key={unitIndex} className='border rounded-md p-4 mt-5'>
                     <div className="flex justify-between items-center">
                       <h2 className="font-bold text-lg">{unit.title}</h2>
