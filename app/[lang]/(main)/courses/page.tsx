@@ -130,7 +130,7 @@ const CoursesPage: React.FC = () => {
                   </Link>
                   <p className="text-gray-600 text-xs mt-2 mb-4">A course by: {course?.user_id}</p>
                   
-                    {course.content ? (JSON.parse(course.content) as CourseContent).about : ""}
+                      {typeof course.content === 'string' ? JSON.parse(course.content).about : ''}
                   <div className="flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm">
                     <div className="flex flex-col items-start">
                       <div className="flex items-center mb-1">
