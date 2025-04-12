@@ -11,8 +11,11 @@ import Link from 'next/link';
 import { courseSchema } from '@/types/course';
 import { useAllCourses } from '@/utils/hooks/getCourse';
 
+
+
 function Cards() {
   const { data: courses = [], isLoading, isError, error } = useAllCourses();
+
 
   if (isLoading) {  
     return (
@@ -60,7 +63,7 @@ function Cards() {
                     <h2 className="text-lg font-bold cursor-pointer">{course.title}</h2>
                   </Link>
                   <p className="text-gray-600 text-xs mt-2 mb-4">A course by: {course.user_id}</p>
-                  <p className="text-gray-500 mb-4 text-sm">{(course.content?.about)}</p>
+                     {typeof course.content === 'string' ? JSON.parse(course.content).about : ''}
                   {/* Display Price */}
                   <p className="text-green-600 font-bold text-lg mb-4">
                     {course.price ? `$${course.price}` : 'Free'}

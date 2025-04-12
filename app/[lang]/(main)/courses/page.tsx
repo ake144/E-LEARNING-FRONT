@@ -27,6 +27,10 @@ const CoursesPage: React.FC = () => {
     return encodeURIComponent(firstWord); // Encodes the first word to be URL safe
   };
 
+  interface CourseContent{
+    about: string;
+  }
+
 
 
   useEffect(() => {
@@ -126,7 +130,7 @@ const CoursesPage: React.FC = () => {
                   </Link>
                   <p className="text-gray-600 text-xs mt-2 mb-4">A course by: {course?.user_id}</p>
                   
-                  <p className="text-gray-500 mb-4 text-sm">{(course.content)?.about}</p>
+                    {course.content ? (JSON.parse(course.content) as CourseContent).about : ""}
                   <div className="flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm">
                     <div className="flex flex-col items-start">
                       <div className="flex items-center mb-1">

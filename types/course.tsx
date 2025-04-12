@@ -9,10 +9,17 @@ short_video_url: string;
 old_price: number;
 price: number;
 image_url: string;
-content: string;
+content: courseContent;
 category_id: number;
 user_id: number;
 
+}
+
+export interface courseContent {
+about: string;
+curriculum: string;
+requirements: string;
+outcomes: string;
 }
 
 
