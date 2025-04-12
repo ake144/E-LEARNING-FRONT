@@ -64,7 +64,7 @@ const SearchPage = () => {
                   <h2 className='text-lg font-bold cursor-pointer'>{result.title}</h2>
                 </Link>
                 <p className='text-gray-600 text-xs mt-2 mb-4'>A course by: {result.user_id}</p>
-                <p className="text-gray-500 mb-4 text-sm">{JSON.parse(result.content).about}</p>
+                <p className="text-gray-500 mb-4 text-sm">{typeof result.content === 'string' ? JSON.parse(result.content).about : ''}</p>
                 <div className='flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm'>
                   <div className='flex flex-col items-start'>
                     <div className='flex items-center mb-1'>
@@ -123,7 +123,7 @@ const SearchPage = () => {
               <h2 className='text-lg font-bold'>{result.title}</h2>
                  </Link>
               <p className='text-gray-600 text-xs mt-2 mb-4'>A course by: {result.user_id}</p>
-              <p className="text-gray-500 mb-4 text-sm">{JSON.parse(result.content).about}</p>
+              <p className="text-gray-500 mb-4 text-sm">{typeof result.content === 'string' ? JSON.parse(result.content).about : ''} </p>
               <div className='flex border-y pb-5 pt-5 border-gray-900 justify-between items-center text-gray-600 text-sm'>
                 <div className='flex flex-col items-start'>
                   <div className='flex items-center mb-1'>
