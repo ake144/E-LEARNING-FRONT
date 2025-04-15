@@ -61,16 +61,18 @@ console.log("session", session)
 
   
     const courseId = Number(numericId)
-    const { Fname, Lname, email, username } = user;
+    const { Fname, Lname, email } = user;
 
  
-    const first_name = Fname;
-    const last_name = Lname; // Ensure last_name is available
+    const first_name = Fname || 'ethio1'; // Ensure first_name is available
+    const last_name = Lname || ''; // Ensure last_name is available
     const phone_number = '1234567890'; // Add a phone number if available
     const currency = 'ETB';
     const amount = 200;
     const redirect_url = `${return_url}/pay/sucess?courseId=${courseId}`;; 
   
+    console.log('Redirect URL:', redirect_url);
+    
     try {
       const response = await axios.post(`${BaseUrl}/payment`, {
         amount,
@@ -79,7 +81,7 @@ console.log("session", session)
         first_name,
         last_name,
         phone_number,
-        tx_ref: `${username}-${Date.now()}`, // Generate a unique transaction reference
+        tx_ref: `${first_name}-${Date.now()}`, // Generate a unique transaction reference
         redirect_url,
         payment_options: 'card',
         customizations: {
@@ -94,15 +96,17 @@ console.log("session", session)
         throw new Error('Error processing payment request');
       }
 
-      const checkoutUrl = response.data;
-      console.log('Checkout URL:', checkoutUrl);
+      console.log('Payment response:', response);
 
-      if (!checkoutUrl) {
+      const checkout_url = response.data?.data?.checkout_url;
+      console.log('Checkout URL:', checkout_url);
+
+      if (!checkout_url) {
           throw new Error('Error processing payment request: No checkout URL received');
       }
 
       // Redirect to the checkout URL
-      window.location.href = checkoutUrl;
+      window.location.href = checkout_url;
     } catch (error) {
       console.error('Error', error);
     }
