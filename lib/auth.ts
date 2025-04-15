@@ -39,8 +39,8 @@ const authOptions = {
             id: user.id,
             email: user.email,
             username: user.username,
-            Fname: user.Fname,
-            Lname: user.Lname,
+            Fname: user.first_name,
+            Lname: user.last_name,
             accssesToken: user.accessToken,
           };
         } catch (error) {

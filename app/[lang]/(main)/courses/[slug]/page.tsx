@@ -50,8 +50,9 @@ console.log("session", session)
   const user = session?.user;
   const userId = user?.id;
 
+  console.log('Course ID:', userId);
+
   const handlePay = async () => {
-   
   
     if (!user) {
       router.push('/auth/signin');
@@ -94,6 +95,7 @@ console.log("session", session)
       }
 
       const checkoutUrl = response.data;
+      console.log('Checkout URL:', checkoutUrl);
 
       if (!checkoutUrl) {
           throw new Error('Error processing payment request: No checkout URL received');
@@ -112,7 +114,6 @@ console.log("session", session)
 
   const isPurchased = isCoursePurchased(Number(numericId), userId,BaseUrl)
 
-  console.log(isPurchased)
 
   const openShareModal = () => {
     setIsShareModalOpen(true);
