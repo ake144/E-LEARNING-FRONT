@@ -6,7 +6,7 @@ import ResourcesSection from "./ResourcesSection"
 import OverviewSection from "./overview"
 import QASection from "./QAsection"
 import { useCompletionStatus } from "@/utils/hooks/useCompletionStatus"
-import CertificateSection from "../certeficate/certefi cateSection"
+import CertificateSection from "../certeficate/certeficateSection"
 
 
 type TabType = "overview" | "qa" | "resources" | "certificate"

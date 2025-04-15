@@ -50,7 +50,7 @@ export default function CertificateSection({ courseId, courseTitle, completionSt
         return Math.random() * (max - min) + min
       }
 
-      const interval = setInterval(() => {
+      const interval: ReturnType<typeof setInterval> = setInterval(() => {
         const timeLeft = animationEnd - Date.now()
 
         if (timeLeft <= 0) {
