@@ -18,8 +18,10 @@ user_id: number;
 export interface courseContent {
 about: string;
 curriculum: string;
-requirements: string;
-outcomes: string;
+requirements: string[];
+target_audience: string[];
+whatYouWillLearn: string[];
+units: string[];
 }
 
 
